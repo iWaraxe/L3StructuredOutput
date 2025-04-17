@@ -78,7 +78,7 @@ public class OpenAIServiceImpl implements OpenAIService {
         BeanOutputConverter<Recipe> converter =
                 new BeanOutputConverter<>(Recipe.class);
 
-        // Get the format instructions
+        // Get the format instructions and JSON schema
         String format = converter.getFormat();
 
         // Create a template from our resource
