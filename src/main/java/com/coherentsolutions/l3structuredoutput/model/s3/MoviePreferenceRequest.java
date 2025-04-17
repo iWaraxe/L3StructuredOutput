@@ -1,4 +1,4 @@
-package com.coherentsolutions.l3structuredoutput.model;
+package com.coherentsolutions.l3structuredoutput.model.s3;
 
 /**
  * Represents a request for movie recommendations based on user preferences.

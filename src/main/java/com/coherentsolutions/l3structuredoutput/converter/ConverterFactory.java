@@ -1,21 +1,17 @@
 package com.coherentsolutions.l3structuredoutput.converter;
 
-import com.coherentsolutions.l3structuredoutput.model.MovieRecommendation;
-import com.coherentsolutions.l3structuredoutput.model.Product;
+import com.coherentsolutions.l3structuredoutput.model.s4.Product;
 import org.springframework.ai.converter.AbstractConversionServiceOutputConverter;
 import org.springframework.ai.converter.AbstractMessageOutputConverter;
 import org.springframework.ai.converter.BeanOutputConverter;
 import org.springframework.ai.converter.ListOutputConverter;
 import org.springframework.ai.converter.MapOutputConverter;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.core.convert.ConversionException;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.support.MessageBuilder;
-import reactor.core.Exceptions;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Factory class providing examples of various structured output converters.

@@ -1,4 +1,4 @@
-package com.coherentsolutions.l3structuredoutput.model;
+package com.coherentsolutions.l3structuredoutput.model.s2;
 
 /**
  * Record representing a request for sentiment analysis.

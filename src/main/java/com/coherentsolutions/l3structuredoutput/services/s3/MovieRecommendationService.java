@@ -1,7 +1,7 @@
-package com.coherentsolutions.l3structuredoutput.services;
+package com.coherentsolutions.l3structuredoutput.services.s3;
 
-import com.coherentsolutions.l3structuredoutput.model.MoviePreferenceRequest;
-import com.coherentsolutions.l3structuredoutput.model.MovieRecommendation;
+import com.coherentsolutions.l3structuredoutput.model.s3.MoviePreferenceRequest;
+import com.coherentsolutions.l3structuredoutput.model.s3.MovieRecommendation;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;

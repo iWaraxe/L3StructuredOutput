@@ -1,8 +1,8 @@
-package com.coherentsolutions.l3structuredoutput.controllers;
+package com.coherentsolutions.l3structuredoutput.controllers.s3;
 
-import com.coherentsolutions.l3structuredoutput.model.MoviePreferenceRequest;
-import com.coherentsolutions.l3structuredoutput.model.MovieRecommendation;
-import com.coherentsolutions.l3structuredoutput.services.MovieRecommendationService;
+import com.coherentsolutions.l3structuredoutput.model.s3.MoviePreferenceRequest;
+import com.coherentsolutions.l3structuredoutput.model.s3.MovieRecommendation;
+import com.coherentsolutions.l3structuredoutput.services.s3.MovieRecommendationService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

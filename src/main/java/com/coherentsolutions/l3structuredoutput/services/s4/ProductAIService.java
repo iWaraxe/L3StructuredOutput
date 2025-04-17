@@ -1,9 +1,9 @@
-package com.coherentsolutions.l3structuredoutput.services;
+package com.coherentsolutions.l3structuredoutput.services.s4;
 
 import com.coherentsolutions.l3structuredoutput.converter.ConverterFactory;
 import com.coherentsolutions.l3structuredoutput.converter.ConverterFactory.ProductReview;
 import com.coherentsolutions.l3structuredoutput.converter.ConverterFactory.ProductSummary;
-import com.coherentsolutions.l3structuredoutput.model.Product;
+import com.coherentsolutions.l3structuredoutput.model.s4.Product;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;

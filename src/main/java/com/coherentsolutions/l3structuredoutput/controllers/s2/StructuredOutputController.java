@@ -1,7 +1,7 @@
-package com.coherentsolutions.l3structuredoutput.controllers;
+package com.coherentsolutions.l3structuredoutput.controllers.s2;
 
-import com.coherentsolutions.l3structuredoutput.model.*;
-import com.coherentsolutions.l3structuredoutput.services.OpenAIService;
+import com.coherentsolutions.l3structuredoutput.model.s2.*;
+import com.coherentsolutions.l3structuredoutput.services.s2.OpenAIService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

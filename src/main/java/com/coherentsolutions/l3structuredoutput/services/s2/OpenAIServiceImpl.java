@@ -1,6 +1,6 @@
-package com.coherentsolutions.l3structuredoutput.services;
+package com.coherentsolutions.l3structuredoutput.services.s2;
 
-import com.coherentsolutions.l3structuredoutput.model.*;
+import com.coherentsolutions.l3structuredoutput.model.s2.*;
 import com.coherentsolutions.l3structuredoutput.utils.PromptTemplateUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.ai.chat.model.ChatResponse;
@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 

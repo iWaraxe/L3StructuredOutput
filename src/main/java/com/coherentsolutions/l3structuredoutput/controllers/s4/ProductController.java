@@ -1,9 +1,9 @@
-package com.coherentsolutions.l3structuredoutput.controllers;
+package com.coherentsolutions.l3structuredoutput.controllers.s4;
 
 import com.coherentsolutions.l3structuredoutput.converter.ConverterFactory.ProductReview;
 import com.coherentsolutions.l3structuredoutput.converter.ConverterFactory.ProductSummary;
-import com.coherentsolutions.l3structuredoutput.model.Product;
-import com.coherentsolutions.l3structuredoutput.services.ProductAIService;
+import com.coherentsolutions.l3structuredoutput.model.s4.Product;
+import com.coherentsolutions.l3structuredoutput.services.s4.ProductAIService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -1,6 +1,6 @@
-package com.coherentsolutions.l3structuredoutput.services;
+package com.coherentsolutions.l3structuredoutput.services.s2;
 
-import com.coherentsolutions.l3structuredoutput.model.*;
+import com.coherentsolutions.l3structuredoutput.model.s2.*;
 
 /**
  * Service interface for interacting with OpenAI's API.
