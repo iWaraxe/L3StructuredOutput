@@ -138,7 +138,10 @@ public class ConverterFactory {
                                 ProductReview.class);
                         return (ProductReview) review;
                     } catch (Exception ex) {
-                        throw Exceptions.propagate(ex);
+                        throw new IllegalArgumentException(
+                                "Failed to convert AI response to ProductReview: " + ex.getMessage(),
+                                ex
+                        );
                     }
                 }
             }
