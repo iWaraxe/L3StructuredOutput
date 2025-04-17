@@ -62,16 +62,21 @@ public class CapitalInfoService {
         String countriesList = String.join(", ", countries);
 
         String promptText = """
-            Compare the capital cities of these countries: {countries}.
-            
-            For each country, provide detailed information about its capital city,
-            including the city name, population (in millions), region/state,
-            primary language, currency, and an array of at least 2 famous landmarks.
-            
-            Format the response as a map where the country name is the key and
-            the capital information is the value.
-            {format}
-            """;
+                      Compare the capital cities of these countries: {countries}.
+                      
+                      For each country, you MUST provide ALL of the following information about its capital city:
+                       - The exact name of the capital city (as city field)
+                       - The population in millions as a number (as population field)
+                       - The region or state where the capital is located (as region field)
+                       - The primary language spoken in the capital (as language field)
+                       - The currency used (as currency field)
+                       - An array of at least 2 famous landmarks (as landmarks field)
+                      
+                      Do not omit any fields. If you are unsure about the exact value, provide your best estimate.
+                      
+                      Format the response as a map where the country name is the key and the capital information is the value.
+                      {format}
+                      """;
 
         PromptTemplate template = new PromptTemplate(promptText);
         String renderedPrompt = template.render(Map.of(

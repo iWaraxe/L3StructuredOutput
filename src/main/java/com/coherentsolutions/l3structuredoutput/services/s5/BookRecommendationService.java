@@ -32,8 +32,18 @@ public class BookRecommendationService {
 
         // Step 3: Create a prompt template with the user's preferences
         String promptText = """
-            Recommend a {genre} book with a {mood} mood that explores the theme of {theme}.
-            Provide a recommendation with title, author, genre, publication year, and a brief summary.
+            Recommend {genre} books categorized by different moods: {moods}.
+            For each mood, provide 2-3 book recommendations with:
+            - Title
+            - Author
+            - Genre
+            - Publication year (numerical value, exact year, e.g. 1997 - this is REQUIRED)
+            - A brief summary
+            
+            All fields must be included for each book. If you don't know the exact publication year, provide your best estimate.
+            
+            Return the recommendations as a map where each key is a mood and 
+            the value is a list of book recommendations.
             {format}
             """;
 

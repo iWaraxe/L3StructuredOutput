@@ -17,7 +17,7 @@ public record BookRecommendation(
         @JsonPropertyDescription("The book's genre (e.g., Fiction, Non-fiction, Mystery)")
         String genre,
 
-        @JsonPropertyDescription("The year the book was published")
+        @JsonPropertyDescription("The year the book was published as a 4-digit integer (e.g., 1998)")
         Integer publicationYear,
 
         @JsonPropertyDescription("A brief summary of the book's content")
