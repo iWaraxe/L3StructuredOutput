@@ -1,13 +1,18 @@
 package com.coherentsolutions.l3structuredoutput.converter;
 
+import com.coherentsolutions.l3structuredoutput.model.MovieRecommendation;
 import com.coherentsolutions.l3structuredoutput.model.Product;
 import org.springframework.ai.converter.AbstractConversionServiceOutputConverter;
 import org.springframework.ai.converter.AbstractMessageOutputConverter;
 import org.springframework.ai.converter.BeanOutputConverter;
 import org.springframework.ai.converter.ListOutputConverter;
 import org.springframework.ai.converter.MapOutputConverter;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.core.convert.ConversionException;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
+import org.springframework.messaging.support.MessageBuilder;
+import reactor.core.Exceptions;
 
 import java.util.List;
 import java.util.Map;
@@ -30,7 +35,7 @@ public class ConverterFactory {
      * This converter can transform AI output into a List<Product>.
      */
     public static BeanOutputConverter<List<Product>> createProductListConverter() {
-        return new BeanOutputConverter<>(List.class, Product.class);
+        return new BeanOutputConverter<>(new ParameterizedTypeReference<List<Product>>() {});
     }
 
     /**
@@ -113,6 +118,48 @@ public class ConverterFactory {
                     
                     Ensure the response is a valid JSON object with the exact field names shown above.
                     """;
+            }
+
+            @Override
+            public ProductReview convert(String source) {
+                try {
+                    // Try to use the MessageConverter to convert the text to a ProductReview
+                    Object review = getMessageConverter().fromMessage(
+                            MessageBuilder.withPayload(source).build(),
+                            ProductReview.class);
+                    return (ProductReview) review;
+                } catch (Exception e) {
+                    // If direct conversion fails, try to clean the text and extract JSON
+                    String extractedJson = extractJsonFromText(source);
+                    try {
+                        // Try again with the extracted JSON
+                        Object review = getMessageConverter().fromMessage(
+                                MessageBuilder.withPayload(extractedJson).build(),
+                                ProductReview.class);
+                        return (ProductReview) review;
+                    } catch (Exception ex) {
+                        throw Exceptions.propagate(ex);
+                    }
+                }
+            }
+
+            /**
+             * Helper method to extract JSON from text that might contain additional content
+             * @param text The raw text that may contain JSON
+             * @return The extracted JSON, or the original text if no JSON is found
+             */
+            private String extractJsonFromText(String text) {
+                // Find JSON object boundaries
+                int jsonStart = text.indexOf('{');
+                int jsonEnd = text.lastIndexOf('}');
+
+                if (jsonStart >= 0 && jsonEnd > jsonStart) {
+                    // Extract just the JSON part
+                    return text.substring(jsonStart, jsonEnd + 1);
+                }
+
+                // If no JSON object structure found, return original text
+                return text;
             }
         };
     }
