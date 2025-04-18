@@ -1,5 +1,11 @@
 package com.coherentsolutions.l3structuredoutput.s2;
 
+import com.coherentsolutions.l3structuredoutput.s2.ex1.WeatherForecast;
+import com.coherentsolutions.l3structuredoutput.s2.ex1.WeatherForecastRequest;
+import com.coherentsolutions.l3structuredoutput.s2.ex2.Recipe;
+import com.coherentsolutions.l3structuredoutput.s2.ex2.RecipeRequest;
+import com.coherentsolutions.l3structuredoutput.s2.ex3.SentimentAnalysis;
+import com.coherentsolutions.l3structuredoutput.s2.ex3.SentimentAnalysisRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

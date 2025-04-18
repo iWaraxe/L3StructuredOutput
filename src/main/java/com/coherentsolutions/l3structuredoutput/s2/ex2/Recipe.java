@@ -1,4 +1,4 @@
-package com.coherentsolutions.l3structuredoutput.s2;
+package com.coherentsolutions.l3structuredoutput.s2.ex2;
 
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;

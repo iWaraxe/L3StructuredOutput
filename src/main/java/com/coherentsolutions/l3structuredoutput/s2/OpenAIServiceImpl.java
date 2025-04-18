@@ -1,5 +1,11 @@
 package com.coherentsolutions.l3structuredoutput.s2;
 
+import com.coherentsolutions.l3structuredoutput.s2.ex1.WeatherForecast;
+import com.coherentsolutions.l3structuredoutput.s2.ex1.WeatherForecastRequest;
+import com.coherentsolutions.l3structuredoutput.s2.ex2.Recipe;
+import com.coherentsolutions.l3structuredoutput.s2.ex2.RecipeRequest;
+import com.coherentsolutions.l3structuredoutput.s2.ex3.SentimentAnalysis;
+import com.coherentsolutions.l3structuredoutput.s2.ex3.SentimentAnalysisRequest;
 import com.coherentsolutions.l3structuredoutput.s2.utils.PromptTemplateUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.ai.chat.model.ChatResponse;
