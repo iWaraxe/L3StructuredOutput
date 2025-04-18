@@ -34,9 +34,11 @@ public class OpenAiJsonModesController {
     public String getProductRecommendationJsonObject(
             @RequestParam(defaultValue = "smartphone") String productType) {
 
+        String jsonSchema = "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"description\":\"Product name\"},\"category\":{\"type\":\"string\",\"description\":\"Product category\"},\"price\":{\"type\":\"number\",\"description\":\"Product price in USD\"},\"rating\":{\"type\":\"number\",\"description\":\"Product rating out of 5\"},\"features\":{\"type\":\"array\",\"items\":{\"type\":\"string\"},\"minItems\":3,\"description\":\"List of product features\"},\"availability\":{\"type\":\"string\",\"description\":\"Product availability status\"}},\"required\":[\"name\",\"category\",\"price\",\"rating\",\"features\",\"availability\"]}";
+
         // Create options with JSON_OBJECT response format
         OpenAiChatOptions options = OpenAiChatOptions.builder()
-                .responseFormat(new ResponseFormat(ResponseFormat.Type.JSON_OBJECT))
+                .responseFormat(new ResponseFormat(ResponseFormat.Type.JSON_OBJECT,jsonSchema))
                 .build();
 
         String promptText = String.format(
@@ -127,9 +129,11 @@ public class OpenAiJsonModesController {
      */
     @PostMapping("/compare-json-modes")
     public ComparisonResult compareJsonModes(@RequestParam String stockSymbol) {
+        String jsonSchema1 = "{\"type\":\"object\",\"properties\":{\"ticker\":{\"type\":\"string\",\"description\":\"Stock ticker symbol\"},\"currentPrice\":{\"type\":\"number\",\"description\":\"Current stock price in USD\"},\"peRatio\":{\"type\":\"number\",\"description\":\"Price to earnings ratio\"},\"marketCap\":{\"type\":\"number\",\"description\":\"Market capitalization in USD\"},\"dividendYield\":{\"type\":\"number\",\"description\":\"Annual dividend yield as a percentage\"},\"fiftyTwoWeekRange\":{\"type\":\"object\",\"properties\":{\"low\":{\"type\":\"number\",\"description\":\"52-week low price\"},\"high\":{\"type\":\"number\",\"description\":\"52-week high price\"}},\"required\":[\"low\",\"high\"]},\"analysis\":{\"type\":\"string\",\"description\":\"Brief analysis paragraph about the stock\"}},\"required\":[\"ticker\",\"currentPrice\",\"peRatio\",\"marketCap\",\"dividendYield\",\"fiftyTwoWeekRange\",\"analysis\"]}";
+
         // First, get response using JSON_OBJECT mode
         OpenAiChatOptions jsonObjectOptions = OpenAiChatOptions.builder()
-                .responseFormat(new ResponseFormat(ResponseFormat.Type.JSON_OBJECT))
+                .responseFormat(new ResponseFormat(ResponseFormat.Type.JSON_OBJECT, jsonSchema1))
                 .build();
 
         String jsonObjectPrompt = String.format(
