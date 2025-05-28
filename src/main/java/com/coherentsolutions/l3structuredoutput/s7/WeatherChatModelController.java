@@ -54,9 +54,9 @@ public class WeatherChatModelController {
                 """;
 
         // Render the template with the parameters
-        Prompt prompt = new PromptTemplate(promptTemplate,
-                Map.of("city", city, "format", format))
-                .create();
+        PromptTemplate template = new PromptTemplate(promptTemplate);
+        String renderedPrompt = template.render(Map.of("city", city, "format", format));
+        Prompt prompt = new Prompt(renderedPrompt);
 
         // Call the model with the prompt
         String responseText = chatModel.call(prompt)
