@@ -110,7 +110,9 @@ public class FinancialAdviceService {
                 "format", format
         );
 
-        Prompt prompt = new PromptTemplate(promptTemplate, parameters).create();
+        PromptTemplate template = new PromptTemplate(promptTemplate);
+        String renderedPrompt = template.render(parameters);
+        Prompt prompt = new Prompt(renderedPrompt);
 
         // Call the model
         String responseText = chatModel.call(prompt)

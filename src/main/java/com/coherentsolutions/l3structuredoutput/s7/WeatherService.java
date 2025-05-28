@@ -72,9 +72,9 @@ public class WeatherService {
                 {format}
                 """;
 
-        Prompt prompt = new PromptTemplate(promptTemplate,
-                Map.of("city", city, "format", format))
-                .create();
+        PromptTemplate template = new PromptTemplate(promptTemplate);
+        String renderedPrompt = template.render(Map.of("city", city, "format", format));
+        Prompt prompt = new Prompt(renderedPrompt);
 
         String responseText = chatModel.call(prompt)
                 .getResult()
@@ -117,9 +117,9 @@ public class WeatherService {
                 {format}
                 """;
 
-        Prompt prompt = new PromptTemplate(promptTemplate,
-                Map.of("cities", String.join(", ", cities), "format", format))
-                .create();
+        PromptTemplate template = new PromptTemplate(promptTemplate);
+        String renderedPrompt = template.render(Map.of("cities", String.join(", ", cities), "format", format));
+        Prompt prompt = new Prompt(renderedPrompt);
 
         String responseText = chatModel.call(prompt)
                 .getResult()

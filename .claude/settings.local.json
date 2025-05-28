@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./mvnw clean:*)",
+      "Bash(./mvnw test:*)",
+      "Bash(git add:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": false
+}
