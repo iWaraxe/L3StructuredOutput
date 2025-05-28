@@ -3,7 +3,8 @@
     "allow": [
       "Bash(./mvnw clean:*)",
       "Bash(./mvnw test:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(rm:*)"
     ]
   },
   "enableAllProjectMcpServers": false
