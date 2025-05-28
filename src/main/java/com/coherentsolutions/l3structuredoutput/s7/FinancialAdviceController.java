@@ -79,13 +79,12 @@ public class FinancialAdviceController {
                 .maxTokens(1500)   // Higher token limit for detailed analysis
                 .build();
 
-        Prompt prompt = new PromptTemplate(promptTemplate,
-                Map.of("name", investmentDetails.get("name"),
+        Prompt prompt = new PromptTemplate(promptTemplate)
+                .create(Map.of("name", investmentDetails.get("name"),
                         "type", investmentDetails.get("type"),
                         "price", investmentDetails.get("price"),
                         "history", investmentDetails.get("history"),
-                        "format", format))
-                .create();
+                        "format", format));
 
         String response = chatModel.call(
                         new Prompt(prompt.getInstructions(), options))
@@ -135,12 +134,11 @@ public class FinancialAdviceController {
                 {format}
                 """;
 
-        Prompt prompt = new PromptTemplate(promptTemplate,
-                Map.of("type", type,
+        Prompt prompt = new PromptTemplate(promptTemplate)
+                .create(Map.of("type", type,
                         "risk", risk,
                         "return", minReturn,
-                        "format", format))
-                .create();
+                        "format", format));
 
         String response = chatModel.call(prompt)
                 .getResult()

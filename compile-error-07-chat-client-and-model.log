@@ -1,0 +1,144 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------< com.coherentsolutions:L3StructuredOutput >--------------
+[INFO] Building L3StructuredOutput 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.1:clean (default-clean) @ L3StructuredOutput ---
+[INFO] Deleting /Users/igorwaraxe/ClaudeCode/SAI/Lecture03-StructuredOutput/L3StructuredOutput/target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ L3StructuredOutput ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 3 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ L3StructuredOutput ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 35 source files with javac [debug parameters release 21] to target/classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /Users/igorwaraxe/ClaudeCode/SAI/Lecture03-StructuredOutput/L3StructuredOutput/src/main/java/com/coherentsolutions/l3structuredoutput/s7/FinancialAdviceController.java:[82,25] no suitable constructor found for PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.Object>)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+      (actual and formal argument lists differ in length)
+[ERROR] /Users/igorwaraxe/ClaudeCode/SAI/Lecture03-StructuredOutput/L3StructuredOutput/src/main/java/com/coherentsolutions/l3structuredoutput/s7/FinancialAdviceController.java:[138,25] no suitable constructor found for PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.Object&java.io.Serializable&java.lang.Comparable<? extends java.lang.Object&java.io.Serializable&java.lang.Comparable<?>&java.lang.constant.Constable&java.lang.constant.ConstantDesc>&java.lang.constant.Constable&java.lang.constant.ConstantDesc>)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+      (actual and formal argument lists differ in length)
+[ERROR] /Users/igorwaraxe/ClaudeCode/SAI/Lecture03-StructuredOutput/L3StructuredOutput/src/main/java/com/coherentsolutions/l3structuredoutput/s7/FinancialAdviceService.java:[113,25] no suitable constructor found for PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.Object>)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+      (actual and formal argument lists differ in length)
+[ERROR] /Users/igorwaraxe/ClaudeCode/SAI/Lecture03-StructuredOutput/L3StructuredOutput/src/main/java/com/coherentsolutions/l3structuredoutput/s7/WeatherChatModelController.java:[57,25] no suitable constructor found for PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.String>)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+      (actual and formal argument lists differ in length)
+[ERROR] /Users/igorwaraxe/ClaudeCode/SAI/Lecture03-StructuredOutput/L3StructuredOutput/src/main/java/com/coherentsolutions/l3structuredoutput/s7/WeatherService.java:[75,25] no suitable constructor found for PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.String>)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+      (actual and formal argument lists differ in length)
+[ERROR] /Users/igorwaraxe/ClaudeCode/SAI/Lecture03-StructuredOutput/L3StructuredOutput/src/main/java/com/coherentsolutions/l3structuredoutput/s7/WeatherService.java:[120,25] no suitable constructor found for PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.String>)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+      (actual and formal argument lists differ in length)
+    constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+      (actual and formal argument lists differ in length)
+[INFO] 6 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.177 s
+[INFO] Finished at: 2025-05-28T22:52:14+02:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile (default-compile) on project L3StructuredOutput: Compilation failure: Compilation failure: 
+[ERROR] /Users/igorwaraxe/ClaudeCode/SAI/Lecture03-StructuredOutput/L3StructuredOutput/src/main/java/com/coherentsolutions/l3structuredoutput/s7/FinancialAdviceController.java:[82,25] no suitable constructor found for PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.Object>)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR] /Users/igorwaraxe/ClaudeCode/SAI/Lecture03-StructuredOutput/L3StructuredOutput/src/main/java/com/coherentsolutions/l3structuredoutput/s7/FinancialAdviceController.java:[138,25] no suitable constructor found for PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.Object&java.io.Serializable&java.lang.Comparable<? extends java.lang.Object&java.io.Serializable&java.lang.Comparable<?>&java.lang.constant.Constable&java.lang.constant.ConstantDesc>&java.lang.constant.Constable&java.lang.constant.ConstantDesc>)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR] /Users/igorwaraxe/ClaudeCode/SAI/Lecture03-StructuredOutput/L3StructuredOutput/src/main/java/com/coherentsolutions/l3structuredoutput/s7/FinancialAdviceService.java:[113,25] no suitable constructor found for PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.Object>)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR] /Users/igorwaraxe/ClaudeCode/SAI/Lecture03-StructuredOutput/L3StructuredOutput/src/main/java/com/coherentsolutions/l3structuredoutput/s7/WeatherChatModelController.java:[57,25] no suitable constructor found for PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.String>)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR] /Users/igorwaraxe/ClaudeCode/SAI/Lecture03-StructuredOutput/L3StructuredOutput/src/main/java/com/coherentsolutions/l3structuredoutput/s7/WeatherService.java:[75,25] no suitable constructor found for PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.String>)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR] /Users/igorwaraxe/ClaudeCode/SAI/Lecture03-StructuredOutput/L3StructuredOutput/src/main/java/com/coherentsolutions/l3structuredoutput/s7/WeatherService.java:[120,25] no suitable constructor found for PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.String>)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(java.lang.String,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR]     constructor org.springframework.ai.chat.prompt.PromptTemplate.PromptTemplate(org.springframework.core.io.Resource,java.util.Map<java.lang.String,java.lang.Object>,org.springframework.ai.template.TemplateRenderer) is not applicable
+[ERROR]       (actual and formal argument lists differ in length)
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
