@@ -4,7 +4,9 @@
       "Bash(./mvnw clean:*)",
       "Bash(./mvnw test:*)",
       "Bash(git add:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(mvn test:*)",
+      "Bash(touch:*)"
     ]
   },
   "enableAllProjectMcpServers": false
