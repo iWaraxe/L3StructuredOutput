@@ -6,7 +6,8 @@
       "Bash(git add:*)",
       "Bash(rm:*)",
       "Bash(mvn test:*)",
-      "Bash(touch:*)"
+      "Bash(touch:*)",
+      "Bash(ls:*)"
     ]
   },
   "enableAllProjectMcpServers": false
