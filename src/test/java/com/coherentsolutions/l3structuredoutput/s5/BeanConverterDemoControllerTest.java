@@ -3,7 +3,7 @@ package com.coherentsolutions.l3structuredoutput.s5;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
@@ -24,13 +24,13 @@ class BeanConverterDemoControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @MockitoBean
     private BookRecommendationService bookService;
 
-    @MockBean
+    @MockitoBean
     private AdvancedBookRecommendationService advancedBookService;
 
-    @MockBean
+    @MockitoBean
     private CapitalInfoService capitalInfoService;
 
     @Test
