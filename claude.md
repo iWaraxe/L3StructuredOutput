@@ -1,244 +1,200 @@
-# Spring AI Course - Lecture 3: Structu
-## Overview
+# CLAUDE.md
 
-This is the third lecture of the Spring AI course, focusing on **Structured Output** - a crucial feature that enables Large Language Models (LLMs) to produce reliable, parseable outputs that can be directly converted into Java objects, JSON, XML, or other structured formats.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Learning Objectives
+@~/.claude/spring-ai-course.md
 
-By the end of this lecture, students will understand:
+## Project-Specific Context
 
-1. **Core Concepts**: The StructuredOutputConverter interface and its role in converting LLM text outputs to structured data
-2. **Available Converters**: BeanOutputConverter, MapOutputConverter, ListOutputConverter, and abstract base classes
-3. **Integration Patterns**: Both high-level (ChatClient) and low-level (ChatModel) API usage
-4. **AI Model Support**: JSON modes and structured output capabilities across different AI providers
-5. **Best Practices**: Validation, error handling, and performance optimization for structured outputs
+This is **Lecture 3: Structured Output** of the Spring AI course series, focusing specifically on Spring AI's StructuredOutputConverter interface and related conversion patterns.
 
-## Project Structure
+## Build Commands
 
-### Existing Sections (s1-s8)
+```bash
+# Build the project
+./mvnw clean package
 
-#### s1 - Foundation (Empty - Reserved for basics)
-- Reserved for introducing basic concepts and setup
+# Run all tests
+./mvnw test
 
-#### s2 - Prompt Templates with Basic Structured Output
-- Introduction to BeanOutputConverter
-- StringTemplate4 integration for prompt templates
-- Basic examples: Weather forecasts, recipes, sentiment analysis
-- JSON schema annotations (@JsonPropertyDescription)
+# Run performance benchmarks (JMH)
+./mvnw test -Dtest=BenchmarkTest
 
-#### s3 - Structured Output Fundamentals
-- Movie recommendation system
-- Working with lists using ParameterizedTypeReference
-- Dynamic prompt templates with parameters
+# Run specific test class
+./mvnw test -Dtest=ConverterFactoryTest
 
-#### s4 - Converter Factory Pattern
-- Comprehensive demonstration of all converter types:
-  - BeanOutputConverter (single objects and lists)
-  - MapOutputConverter for flexible structures
-  - ListOutputConverter for simple lists
-  - Custom AbstractConversionServiceOutputConverter
-  - Custom AbstractMessageOutputConverter
+# Run application
+./mvnw spring-boot:run
 
-#### s5 - Advanced Bean Converter Usage
-- Complex nested structures (Map<String, List<T>>)
-- Book recommendation service
-- Capital information comparison
-- Error handling strategies
+# Run with specific Spring profile
+./mvnw spring-boot:run -Dspring.profiles.active=dev
+```
 
-#### s6 - Map and List Converters in Practice
-- Travel planning application
-- DestinationMapService using MapOutputConverter
-- ActivityListService using ListOutputConverter
-- Real-world use cases
+## Architecture Overview
 
-#### s7 - ChatClient vs ChatModel APIs
-- High-level ChatClient API with fluent interface
-- Low-level ChatModel API with explicit converter usage
-- Weather service implementation comparison
-- Financial advice service with complex analysis
+### Core Architectural Pattern
+The project demonstrates **progressive learning architecture** with 16 sections (s1-s16), each building upon previous concepts:
 
-#### s8 - OpenAI JSON Modes
-- JSON_OBJECT mode for guaranteed valid JSON
-- JSON_SCHEMA mode for schema-validated responses
-- Complex nested model validation
-- Mode comparison and use cases
+- **s1**: Foundation setup (currently basic)
+- **s2-s3**: Fundamental converter usage
+- **s4-s6**: Advanced converter patterns and factories
+- **s7-s8**: API choices and JSON modes
+- **s14-s16**: Production-ready features (performance, testing, real-world)
 
-### Planned Sections (s9-s16)
+### Key Components
 
-#### s9 - Property Ordering and Advanced Annotations
-**Branch**: `10-property-ordering-annotations`
-- @JsonPropertyOrder for controlling schema property sequence
-- Advanced @JsonPropertyDescription usage
-- @JsonProperty and other Jackson annotations
-- Schema generation customization
-- Examples with records and POJOs
+#### StructuredOutputConverter Ecosystem
+- **BeanOutputConverter**: Type-safe POJO conversion with JSON Schema
+- **MapOutputConverter**: Flexible key-value structures
+- **ListOutputConverter**: Simple comma-delimited lists
+- **Custom Converters**: Abstract base classes for specialized needs
 
-#### s10 - Multi-Model Support and JSON Modes
-**Branch**: `11-multi-model-support`
-- Azure OpenAI structured output configuration
-- Anthropic Claude 3 integration
-- Mistral AI JSON mode
-- Ollama format options
-- Vertex AI Gemini support
-- Provider-specific configuration and best practices
+#### Service Layer Pattern
+```java
+@Service
+@RequiredArgsConstructor
+@Slf4j
+public class ExampleService {
+    private final ChatClient chatClient;
+    private final StructuredOutputConverter<TargetType> converter;
+    
+    public TargetType processWithStructuredOutput(String prompt) {
+        return chatClient.prompt()
+            .user(prompt)
+            .call()
+            .entity(converter);
+    }
+}
+```
 
-#### s11 - Validation and Error Recovery
-**Branch**: `12-validation-error-recovery`
-- Output validation strategies
-- Schema validation implementation
-- Retry mechanisms with exponential backoff
-- Fallback strategies for failed conversions
-- Partial output recovery
-- Custom validation rules
+#### Controller Pattern for Each Section
+Each section follows consistent REST API pattern:
+- Controllers in `s{N}/controllers/` packages
+- Endpoints: `/api/s{N}/{feature}`
+- Consistent request/response DTOs
 
-#### s12 - Custom FormatProvider and ConversionService
-**Branch**: `13-custom-format-conversion`
-- Implementing custom FormatProvider
-- Integration with Spring's ConversionService
-- Custom format instructions
-- Domain-specific converters
-- Extending abstract converter classes
+## Branch-Specific Behavior
 
-#### s13 - Advanced Generic Types
-**Branch**: `14-advanced-generics`
-- Complex nested generic structures
-- Type-safe collections and maps
-- Recursive data structures
-- Polymorphic deserialization
-- Generic bounds and wildcards
+### Current Branch Context
+This project uses a **branching strategy** where each section exists in its own branch:
+- `01-api-keys-and-properties` (s1)
+- `02-prompt-templates` (s2)
+- `03-structured-output-fundamentals` (s3)
+- ... continuing through `17-real-world-best-practices` (s16)
 
-#### s14 - Performance and Optimization
-**Branch**: `15-performance-optimization`
-- Response caching strategies
-- Batch processing for multiple outputs
-- Token optimization techniques
-- Parallel processing patterns
-- Memory-efficient conversions
+When working on this project:
+1. Always check current branch context with `git branch --show-current`
+2. Each branch represents a different learning stage
+3. Code complexity increases progressively across branches
 
-#### s15 - Testing Strategies
-**Branch**: `16-testing-strategies`
-- Unit testing converters
-- Mocking LLM responses
-- Integration testing patterns
-- Test data generation
-- Performance benchmarking
-- Contract testing for schemas
+## Testing Strategy Specifics
 
-#### s16 - Real-world Use Cases and Best Practices
-**Branch**: `17-real-world-best-practices`
-- E-commerce product catalog generation
-- Report generation systems
-- Data extraction pipelines
-- API response transformation
-- Migration from legacy parsers
-- Production deployment considerations
+### Mock-First Approach for Cost Control
+This is an **educational project** with extensive AI integration testing:
 
-## Key Concepts Summary
+```java
+// Preferred: Use MockChatModel for unit tests
+@TestConfiguration
+static class TestConfig {
+    @Bean
+    @Primary
+    public ChatModel chatModel() {
+        return new MockChatModel("mocked structured response");
+    }
+}
 
-### StructuredOutputConverter Interface
-The core interface combining Spring's Converter<String, T> with FormatProvider, enabling:
-- Format instruction generation for LLMs
-- Conversion of LLM text output to target types
-- Integration with Spring's type conversion system
+// Use real APIs sparingly for integration validation
+@Test
+@Disabled("Expensive - enable for integration testing")
+void testWithRealOpenAI() {
+    // Real OpenAI integration test
+}
+```
 
-### Converter Types
-1. **BeanOutputConverter**: For POJOs and records with JSON Schema generation
-2. **MapOutputConverter**: For flexible key-value structures
-3. **ListOutputConverter**: For simple comma-delimited lists
-4. **AbstractConversionServiceOutputConverter**: Base for custom converters using ConversionService
-5. **AbstractMessageOutputConverter**: Base for custom converters using MessageConverter
+### Performance Testing with JMH
+Advanced sections (s14+) include JMH benchmarking:
+```bash
+# Run performance benchmarks
+./mvnw test -Dtest=*Benchmark*
+```
 
-### Best Practices
-1. Always validate converter output as LLMs may not always follow instructions
-2. Use appropriate converter for the use case (Bean for strong typing, Map for flexibility)
-3. Provide clear format instructions through prompt templates
-4. Implement retry logic for production systems
-5. Consider token limits when designing output schemas
-6. Test with multiple AI providers for compatibility
+## Configuration Patterns
 
-## Testing
-Each section includes comprehensive tests in the `src/main/resources/tests/` directory:
-- Unit tests for converters
-- Integration tests with AI models
-- Example test cases for each feature
+### Required Environment Variables
+```bash
+export OPENAI_API_KEY=your_key_here
+```
 
-## Resources
-- Spring AI Documentation: https://docs.spring.io/spring-ai/reference/
-- JSON Schema Specification: https://json-schema.org/
-- OpenAI Structured Outputs: https://platform.openai.com/docs/guides/structured-outputs
+### Application Properties Structure
+```properties
+spring.application.name=L3StructuredOutput
+spring.main.allow-bean-definition-overriding=true
+spring.ai.openai.api-key=${OPENAI_API_KEY}
+spring.ai.openai.chat.options.model=gpt-4.1
+spring.ai.openai.chat.options.temperature=0.7
+```
 
-## Course Navigation
-Students should progress through sections sequentially, as each builds upon previous concepts. Each section is self-contained in its package and can be studied independently after understanding the fundamentals.
+## Development Patterns
 
-## Development Roadmap
+### Converter Usage Patterns
+```java
+// Bean converter for type-safe objects
+BeanOutputConverter<WeatherForecast> converter = 
+    new BeanOutputConverter<>(WeatherForecast.class);
 
-### Phase 1: Spring AI 1.0.0 Upgrade
-**Objective**: Update all existing branches to Spring AI version 1.0.0
+// Map converter for flexible structures
+MapOutputConverter converter = new MapOutputConverter();
 
-1. **Dependency Updates**
-   - Update pom.xml to Spring AI 1.0.0
-   - Review and update any deprecated APIs
-   - Ensure compatibility with Spring Boot 3.x
+// List converter for simple collections
+ListOutputConverter converter = new ListOutputConverter();
+```
 
-2. **API Migration**
-   - Migrate from deprecated OutputParser classes to new StructuredOutputConverter
-   - Update BeanOutputParser → BeanOutputConverter
-   - Update ListOutputParser → ListOutputConverter
-   - Update MapOutputParser → MapOutputConverter
-   - Review and update ChatClient/ChatModel API changes
+### Error Handling for AI Responses
+Always implement validation since LLMs may not follow instructions perfectly:
+```java
+public Optional<TargetType> safeConvert(String aiResponse) {
+    try {
+        TargetType result = converter.convert(aiResponse);
+        return Optional.ofNullable(result);
+    } catch (Exception e) {
+        log.warn("Conversion failed for response: {}", aiResponse, e);
+        return Optional.empty();
+    }
+}
+```
 
-3. **Branch Update Strategy**
-   - Start with main branch
-   - Update each feature branch (s2-s8) sequentially
-   - Test each branch thoroughly after migration
-   - Document any breaking changes or new features
+## Production Considerations (s16)
 
-### Phase 2: Comprehensive Testing Coverage
-**Objective**: Achieve 80%+ test coverage with unit and integration tests
+### Real-World Use Cases Implemented
+- **E-commerce**: Product catalog generation with parallel processing
+- **Reports**: Executive dashboard generation with multiple formats
+- **Data Extraction**: Invoice/contract processing pipelines
+- **API Transformation**: Legacy system modernization patterns
 
-1. **Unit Testing Strategy**
-   - Test each converter in isolation
-   - Mock AI model responses for deterministic testing
-   - Test error scenarios and edge cases
-   - Validate JSON schema generation
-   - Test custom converters and format providers
+### Performance Patterns
+- **Caching**: `StructuredOutputCache` for repeated requests
+- **Parallel Processing**: `ParallelProcessingService` for batch operations
+- **Memory Efficiency**: `MemoryEfficientService` for large datasets
+- **Token Optimization**: `TokenOptimizationService` for cost control
 
-2. **Integration Testing**
-   - Test with actual AI providers (OpenAI, Azure, etc.)
-   - Validate end-to-end structured output generation
-   - Test different response formats and complexity levels
-   - Performance testing for large outputs
-   - Multi-model compatibility testing
+## Common Anti-Patterns to Avoid
 
-3. **Test Organization**
-   ```
-   src/test/java/com/coherentsolutions/l3structuredoutput/
-   ├── unit/
-   │   ├── converters/
-   │   ├── services/
-   │   └── controllers/
-   └── integration/
-       ├── openai/
-       ├── azure/
-       └── e2e/
-   ```
+1. **Don't** use field injection in service classes (use constructor injection)
+2. **Don't** ignore converter validation - always handle potential conversion failures
+3. **Don't** use raw ChatModel API when ChatClient provides cleaner abstraction
+4. **Don't** forget to set temperature and model parameters for consistent results
+5. **Don't** skip testing with mock responses - real AI calls are expensive
 
-4. **Testing Tools**
-   - JUnit 5 for test framework
-   - Mockito for mocking
-   - AssertJ for fluent assertions
-   - WireMock for API mocking
-   - TestContainers for integration tests
-   - Spring Boot Test for context testing
+## Testing Endpoints
 
-5. **Coverage Goals by Section**
-   - s2: Unit tests for all prompt templates and converters
-   - s3: Tests for list handling and parameterized types
-   - s4: Factory pattern tests with all converter types
-   - s5: Complex nested structure tests
-   - s6: Map and List converter edge cases
-   - s7: API comparison tests
-   - s8: JSON mode validation tests
+Each section provides REST endpoints for manual testing:
+```bash
+# View section-specific demos
+curl http://localhost:8080/api/s2/demos
+curl http://localhost:8080/api/s4/products
 
-### Phase 3: Future Section Implementation
-Continue with s9-s16 implementation after completing upgrade and testing phases.
+# Test structured output
+curl -X POST http://localhost:8080/api/s3/movies \
+  -H "Content-Type: application/json" \
+  -d '{"genres": ["action", "sci-fi"], "maxResults": 5}'
+```
