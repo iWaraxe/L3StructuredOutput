@@ -1,0 +1,740 @@
+{
+  "info": {
+    "name": "Spring AI Structured Output Course",
+    "description": "Comprehensive collection for testing Spring AI structured output capabilities across all course sections",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "spring-ai-course-structured-output",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "patch": 0
+    }
+  },
+  "auth": {
+    "type": "noauth"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "exec": [
+          "// Global pre-request script for all course sections",
+          "console.log('Spring AI Course - Section: ' + pm.info.requestName);"
+        ],
+        "type": "text/javascript"
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "exec": [
+          "// Global test script for all course sections",
+          "pm.test('Status code is 200', function () {",
+          "    pm.response.to.have.status(200);",
+          "});",
+          "",
+          "pm.test('Response time is reasonable', function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(30000);",
+          "});",
+          "",
+          "pm.test('Response has valid JSON', function () {",
+          "    pm.response.to.be.json;",
+          "});"
+        ],
+        "type": "text/javascript"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "openai_api_key", 
+      "value": "{{OPENAI_API_KEY}}",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "S01 - Foundation Setup",
+      "description": "Foundation section - API keys and properties setup. No endpoints in this section - pure configuration.",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/actuator/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["actuator", "health"]
+            },
+            "description": "Basic health check to verify the application is running"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "S02 - Prompt Templates & Basic Structured Output",
+      "description": "Demonstrates prompt templates with BeanOutputConverter for weather forecasts, recipes, and sentiment analysis",
+      "item": [
+        {
+          "name": "Weather Forecast",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"location\": \"Seattle, WA\",\n  \"forecastType\": \"daily\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/ai/structured/weather",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ai", "structured", "weather"]
+            },
+            "description": "Generate weather forecast using prompt templates and BeanOutputConverter"
+          },
+          "response": []
+        },
+        {
+          "name": "Recipe Generation",
+          "request": {
+            "method": "POST", 
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dishName\": \"Pasta Carbonara\",\n  \"servings\": 4,\n  \"dietaryRestrictions\": [\"gluten-free\"],\n  \"difficulty\": \"medium\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/ai/structured/recipe",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ai", "structured", "recipe"]
+            },
+            "description": "Generate recipe with ingredients and instructions using prompt templates"
+          },
+          "response": []
+        },
+        {
+          "name": "Sentiment Analysis",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type", 
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"text\": \"I absolutely love this new Spring AI framework! It makes working with AI so much easier.\",\n  \"includeConfidence\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/ai/structured/sentiment",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ai", "structured", "sentiment"]
+            },
+            "description": "Analyze sentiment with confidence scores using few-shot prompting"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "S03 - Structured Output Fundamentals",
+      "description": "Movie recommendation system demonstrating lists and ParameterizedTypeReference usage",
+      "item": [
+        {
+          "name": "Single Movie Recommendation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"genre\": \"Action\",\n  \"releaseYearAfter\": 2020,\n  \"mood\": \"exciting\",\n  \"maxResults\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/movies/recommend",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movies", "recommend"]
+            },
+            "description": "Get a single movie recommendation with structured output"
+          },
+          "response": []
+        },
+        {
+          "name": "Multiple Movie Recommendations",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"genre\": \"Sci-Fi\",\n  \"releaseYearAfter\": 2015,\n  \"mood\": \"thought-provoking\",\n  \"maxResults\": 5\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/movies/recommend/multiple",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movies", "recommend", "multiple"]
+            },
+            "description": "Get multiple movie recommendations using ParameterizedTypeReference"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "S04 - Converter Factory Pattern", 
+      "description": "Comprehensive demonstration of all converter types with product generation examples",
+      "item": [
+        {
+          "name": "Generate Single Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"category\": \"Electronics\",\n  \"priceRange\": \"$500-$1000\",\n  \"features\": [\"wireless\", \"portable\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/products/generate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "generate"]
+            },
+            "description": "Generate single product using BeanOutputConverter"
+          },
+          "response": []
+        },
+        {
+          "name": "Generate Product List",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"category\": \"Home & Garden\",\n  \"count\": 5,\n  \"budget\": \"under $100\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/products/list",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "list"]
+            },
+            "description": "Generate product list using ListOutputConverter"
+          },
+          "response": []
+        },
+        {
+          "name": "Generate Product Summary Map",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"category\": \"Technology\",\n  \"analysisType\": \"market-summary\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/products/summary",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "summary"]
+            },
+            "description": "Generate product summary using MapOutputConverter"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "S05 - Advanced Bean Converter Usage",
+      "description": "Complex nested structures, book recommendations, and error handling strategies",
+      "item": [
+        {
+          "name": "Book Recommendations",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"genre\": \"Science Fiction\",\n  \"authorPreference\": \"modern\",\n  \"length\": \"medium\",\n  \"themes\": [\"space exploration\", \"AI\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/books/recommend",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "books", "recommend"]
+            },
+            "description": "Get book recommendations with complex nested structures"
+          },
+          "response": []
+        },
+        {
+          "name": "Capital Information",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"countries\": [\"France\", \"Germany\", \"Japan\"],\n  \"includePopulation\": true,\n  \"includeCurrency\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/capitals/info",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "capitals", "info"]
+            },
+            "description": "Get capital information with error handling strategies"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "S06 - Map and List Converters in Practice",
+      "description": "Travel planning application with DestinationMapService and ActivityListService",
+      "item": [
+        {
+          "name": "Destination Recommendations",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"budget\": \"$2000\",\n  \"duration\": \"7 days\",\n  \"interests\": [\"culture\", \"food\", \"history\"],\n  \"climate\": \"warm\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/travel/destinations",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "travel", "destinations"]
+            },
+            "description": "Get destination recommendations using MapOutputConverter"
+          },
+          "response": []
+        },
+        {
+          "name": "Activity List",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destination\": \"Tokyo, Japan\",\n  \"duration\": \"3 days\",\n  \"activityTypes\": [\"cultural\", \"outdoor\", \"culinary\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/travel/activities",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "travel", "activities"]
+            },
+            "description": "Get activity list using ListOutputConverter"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "S07 - ChatClient vs ChatModel APIs",
+      "description": "Comparison of high-level ChatClient and low-level ChatModel approaches",
+      "item": [
+        {
+          "name": "Weather Service (ChatClient)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"city\": \"New York\",\n  \"days\": 5\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/weather/chatclient",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "weather", "chatclient"]
+            },
+            "description": "Weather forecast using high-level ChatClient API"
+          },
+          "response": []
+        },
+        {
+          "name": "Weather Service (ChatModel)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"city\": \"Los Angeles\",\n  \"days\": 7\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/weather/chatmodel",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "weather", "chatmodel"]
+            },
+            "description": "Weather forecast using low-level ChatModel API"
+          },
+          "response": []
+        },
+        {
+          "name": "Financial Advice",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"age\": 30,\n  \"income\": 75000,\n  \"riskTolerance\": \"moderate\",\n  \"goals\": [\"retirement\", \"house purchase\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/finance/advice",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "finance", "advice"]
+            },
+            "description": "Financial advice with complex analysis using ChatClient"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "S08 - OpenAI JSON Modes",
+      "description": "JSON_OBJECT and JSON_SCHEMA modes for guaranteed valid JSON responses",
+      "item": [
+        {
+          "name": "JSON Object Mode",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"Generate a product description for a smartphone\",\n  \"mode\": \"JSON_OBJECT\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/json-modes/openai/object",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "json-modes", "openai", "object"]
+            },
+            "description": "Generate response using JSON_OBJECT mode for guaranteed valid JSON"
+          },
+          "response": []
+        },
+        {
+          "name": "JSON Schema Mode",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"Create a detailed product specification\",\n  \"mode\": \"JSON_SCHEMA\",\n  \"schema\": \"ProductSpecification\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/json-modes/openai/schema",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "json-modes", "openai", "schema"]
+            },
+            "description": "Generate response using JSON_SCHEMA mode for schema-validated responses"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "S14 - Performance & Optimization",
+      "description": "Caching, batch processing, parallel execution, and token optimization techniques",
+      "item": [
+        {
+          "name": "Cached Response",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"popular tech trends 2024\",\n  \"useCache\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/performance/cached",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "performance", "cached"]
+            },
+            "description": "Test response caching strategies"
+          },
+          "response": []
+        },
+        {
+          "name": "Batch Processing",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"requests\": [\n    {\"topic\": \"AI trends\"},\n    {\"topic\": \"Cloud computing\"},\n    {\"topic\": \"Cybersecurity\"}\n  ],\n  \"batchSize\": 3\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/performance/batch",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "performance", "batch"]
+            },
+            "description": "Test batch processing for multiple requests"
+          },
+          "response": []
+        },
+        {
+          "name": "Parallel Processing",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tasks\": [\n    {\"type\": \"analysis\", \"data\": \"market research\"},\n    {\"type\": \"generation\", \"data\": \"content creation\"},\n    {\"type\": \"classification\", \"data\": \"data categorization\"}\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/performance/parallel",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "performance", "parallel"]
+            },
+            "description": "Test parallel processing patterns"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "S15 - Testing Strategies",
+      "description": "Unit testing, mocking, integration patterns, and performance benchmarking",
+      "item": [
+        {
+          "name": "Mock Response Test",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"useMock\": true,\n  \"scenario\": \"success\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/testing/mock",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "testing", "mock"]
+            },
+            "description": "Test with mocked AI responses for cost control"
+          },
+          "response": []
+        },
+        {
+          "name": "Performance Benchmark",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"iterations\": 10,\n  \"operation\": \"structured-output\",\n  \"complexity\": \"medium\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/testing/benchmark",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "testing", "benchmark"]
+            },
+            "description": "Run performance benchmarks with JMH"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "S16 - Real-World Use Cases & Best Practices",
+      "description": "Production-ready implementations: e-commerce catalogs, reports, data extraction pipelines",
+      "item": [
+        {
+          "name": "E-commerce Product Catalog",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"category\": \"Electronics\",\n  \"productCount\": 50,\n  \"minPrice\": 100.0,\n  \"maxPrice\": 2000.0,\n  \"targetAudience\": \"Tech Enthusiasts\",\n  \"style\": \"Modern\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/s16/real-world-demo/ecommerce/catalog",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "s16", "real-world-demo", "ecommerce", "catalog"]
+            },
+            "description": "Generate complete e-commerce product catalog with parallel processing"
+          },
+          "response": []
+        },
+        {
+          "name": "Executive Report Generation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reportType\": \"quarterly-business\",\n  \"department\": \"Technology\",\n  \"period\": \"Q4-2024\",\n  \"includeCharts\": true,\n  \"executiveSummary\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/s16/real-world-demo/reports/executive",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "s16", "real-world-demo", "reports", "executive"]
+            },
+            "description": "Generate executive reports with multiple formats and insights"
+          },
+          "response": []
+        },
+        {
+          "name": "Document Data Extraction",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documentType\": \"invoice\",\n  \"extractionFields\": [\"vendor\", \"amount\", \"date\", \"items\"],\n  \"validationRules\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/s16/real-world-demo/extraction/document",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "s16", "real-world-demo", "extraction", "document"]
+            },
+            "description": "Extract structured data from invoices, contracts, and documents"
+          },
+          "response": []
+        },
+        {
+          "name": "API Response Transformation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"legacyFormat\": \"xml\",\n  \"targetFormat\": \"json\",\n  \"preserveMetadata\": true,\n  \"validation\": \"strict\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/s16/real-world-demo/transformation/api-response",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "s16", "real-world-demo", "transformation", "api-response"]
+            },
+            "description": "Transform legacy system responses to modern structured formats"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
