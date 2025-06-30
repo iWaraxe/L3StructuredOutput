@@ -1,0 +1,867 @@
+{
+	"info": {
+		"_postman_id": "c8d4f0a1-8b2c-4d3e-9f1a-2b3c4d5e6f78",
+		"name": "Spring AI Structured Output Course",
+		"description": "Comprehensive collection for Spring AI structured output course demonstrations.\n\nThis collection provides progressive learning through 4 phases:\n1. Foundation & Setup (8 min)\n2. Converter Deep Dive (12 min) \n3. Production Patterns (15 min)\n4. Advanced Features (10 min)\n\nTotal: 45+ minutes of comprehensive Spring AI structured output demonstrations.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Phase 1: Foundation & Setup",
+			"item": [
+				{
+					"name": "Application Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/actuator/health",
+							"host": ["{{baseUrl}}"],
+							"path": ["actuator", "health"]
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Application is healthy\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(pm.response.json().status).to.eql(\"UP\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				},
+				{
+					"name": "S2: Weather Forecast (BeanConverter)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"city\": \"Seattle\",\n  \"forecastType\": \"detailed\",\n  \"includeHourly\": true\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/ai/structured/weather",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "ai", "structured", "weather"]
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Weather forecast returned\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('city');",
+									"    pm.expect(response).to.have.property('temperature');",
+									"    pm.expect(response).to.have.property('description');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				},
+				{
+					"name": "S2: Recipe Generation (Complex Object)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"cuisine\": \"Italian\",\n  \"dietaryRestrictions\": [\"vegetarian\"],\n  \"cookingTime\": 30,\n  \"servings\": 4,\n  \"difficulty\": \"intermediate\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/ai/structured/recipe",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "ai", "structured", "recipe"]
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Recipe generated with structured data\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('name');",
+									"    pm.expect(response).to.have.property('ingredients');",
+									"    pm.expect(response).to.have.property('instructions');",
+									"    pm.expect(response.ingredients).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				},
+				{
+					"name": "S2: Sentiment Analysis (Few-shot)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"text\": \"I absolutely love this Spring AI framework! It makes structured output so easy and reliable.\",\n  \"includeConfidence\": true,\n  \"includeKeyPhrases\": true\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/ai/structured/sentiment",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "ai", "structured", "sentiment"]
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Sentiment analysis completed\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('sentiment');",
+									"    pm.expect(response).to.have.property('confidence');",
+									"    pm.expect(['positive', 'negative', 'neutral']).to.include(response.sentiment);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Phase 2: Converter Deep Dive",
+			"item": [
+				{
+					"name": "S4: Weather with BeanConverter",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"city\": \"Tokyo\",\n  \"includeExtendedForecast\": true,\n  \"units\": \"metric\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/s4/weather",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "s4", "weather"]
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Bean converter produces typed object\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('city', 'Tokyo');",
+									"    pm.expect(response).to.have.property('currentTemperature');",
+									"    pm.expect(response.currentTemperature).to.be.a('number');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				},
+				{
+					"name": "S4: Profile with MapConverter",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"profession\": \"Software Engineer\",\n  \"experience\": \"5 years\",\n  \"technologies\": [\"Java\", \"Spring\", \"AI\"]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/s4/profile",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "s4", "profile"]
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Map converter produces flexible structure\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.be.an('object');",
+									"    pm.expect(Object.keys(response).length).to.be.greaterThan(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				},
+				{
+					"name": "S4: Tags with ListConverter",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"content\": \"This is an article about Spring AI structured output and enterprise integration patterns\",\n  \"maxTags\": 8,\n  \"includeCategories\": true\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/s4/tags",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "s4", "tags"]
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"List converter produces array\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.be.an('array');",
+									"    pm.expect(response.length).to.be.greaterThan(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				},
+				{
+					"name": "S6: Advanced Bean Features",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"topic\": \"Spring AI Enterprise Integration\",\n  \"audienceLevel\": \"advanced\",\n  \"includeExamples\": true,\n  \"language\": \"English\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/s6/advanced-bean",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "s6", "advanced-bean"]
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Advanced bean converter handles nested objects\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('title');",
+									"    pm.expect(response).to.have.property('sections');",
+									"    if (response.sections) {",
+									"        pm.expect(response.sections).to.be.an('array');",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Phase 3: Production Patterns",
+			"item": [
+				{
+					"name": "S16: Demo Overview",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/s16/real-world-demo/overview",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "s16", "real-world-demo", "overview"]
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Demo overview available\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('title');",
+									"    pm.expect(response).to.have.property('useCases');",
+									"    pm.expect(response.useCases).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				},
+				{
+					"name": "S16: E-commerce Product Catalog",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"category\": \"Electronics\",\n  \"productCount\": 5,\n  \"minPrice\": 50.0,\n  \"maxPrice\": 500.0,\n  \"targetMarket\": \"Premium\",\n  \"brandStyle\": \"Modern\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/s16/real-world-demo/e-commerce/catalog",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "s16", "real-world-demo", "e-commerce", "catalog"]
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Product catalog generated\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('products');",
+									"    pm.expect(response).to.have.property('generationStats');",
+									"    pm.expect(response.products).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				},
+				{
+					"name": "S16: Business Report Generation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"type\": \"FINANCIAL\",\n  \"title\": \"Q4 2024 Financial Performance Report\",\n  \"startDate\": \"2024-10-01\",\n  \"endDate\": \"2024-12-31\",\n  \"sections\": [\"Executive Summary\", \"Revenue Analysis\", \"Cost Analysis\", \"Profitability\"],\n  \"stakeholders\": [\"CEO\", \"CFO\", \"Board of Directors\"],\n  \"context\": \"Quarterly financial review for stakeholder presentation\",\n  \"dataSources\": [\"ERP System\", \"CRM Database\", \"Financial Systems\"],\n  \"keyMetrics\": [\"Revenue Growth\", \"EBITDA\", \"Operating Margin\"],\n  \"industry\": \"Technology\",\n  \"objectives\": [\"Growth Assessment\", \"Cost Optimization\"],\n  \"constraints\": [\"Confidential Data\"],\n  \"timeline\": \"End of Q1 2025\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/s16/real-world-demo/reports/business",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "s16", "real-world-demo", "reports", "business"]
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Business report generated\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('report');",
+									"    pm.expect(response).to.have.property('metadata');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				},
+				{
+					"name": "S16: Invoice Data Extraction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"invoiceContent\": \"INVOICE #INV-2024-001\\nDate: 2024-12-01\\n\\nFrom: Tech Solutions Inc.\\n123 Business Ave\\nSeattle, WA 98101\\n\\nTo: Demo Customer Corp\\n456 Customer St\\nPortland, OR 97201\\n\\nItems:\\n1. Spring AI Consulting - $2,500.00\\n2. Development Services - $1,500.00\\n3. Training Workshop - $800.00\\n\\nSubtotal: $4,800.00\\nTax (8.5%): $408.00\\nTotal: $5,208.00\\n\\nPayment Terms: Net 30\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/s16/real-world-demo/extraction/invoice",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "s16", "real-world-demo", "extraction", "invoice"]
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Invoice data extracted\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('invoiceNumber');",
+									"    pm.expect(response).to.have.property('totalAmount');",
+									"    pm.expect(response).to.have.property('vendor');",
+									"    pm.expect(response).to.have.property('lineItems');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				},
+				{
+					"name": "S16: API Legacy Transformation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"SUCCESS\",\n  \"data\": {\n    \"user_id\": 12345,\n    \"user_name\": \"john_doe\",\n    \"full_name\": \"John Doe\",\n    \"email_address\": \"john.doe@example.com\",\n    \"account_type\": \"premium\",\n    \"last_login\": \"2024-12-01T10:30:00Z\"\n  },\n  \"error\": null\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/s16/real-world-demo/transformation/legacy-to-modern",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "s16", "real-world-demo", "transformation", "legacy-to-modern"]
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Legacy API transformed to modern format\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('success');",
+									"    pm.expect(response).to.have.property('data');",
+									"    pm.expect(response).to.have.property('metadata');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Phase 4: Advanced Features",
+			"item": [
+				{
+					"name": "S8: OpenAI JSON Object Mode",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"prompt\": \"Generate a detailed product recommendation for a tech-savvy customer\",\n  \"useJsonMode\": true,\n  \"includeSchema\": true\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/s8/json-mode",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "s8", "json-mode"]
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"JSON mode enforces structure\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.be.an('object');",
+									"    pm.expect(response).to.have.property('productName');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				},
+				{
+					"name": "S14: Performance Optimization Demo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/s14/performance/cache-demo?cacheEnabled=true",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "s14", "performance", "cache-demo"],
+							"query": [
+								{
+									"key": "cacheEnabled",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Performance optimization active\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('cacheHit');",
+									"    pm.expect(response).to.have.property('responseTime');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				},
+				{
+					"name": "S15: Mock Testing Strategy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/s15/testing/mock-demo",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "s15", "testing", "mock-demo"]
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Mock testing demonstrates cost-effective development\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('mockEnabled');",
+									"    pm.expect(response).to.have.property('testResults');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				},
+				{
+					"name": "S16: Comprehensive Demo Scenario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"scenarioName\": \"Complete Spring AI Showcase\",\n  \"includeEcommerce\": true,\n  \"includeReports\": true,\n  \"includeExtraction\": true,\n  \"includeTransformation\": true,\n  \"includeMigration\": false,\n  \"includeDeployment\": false\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/s16/real-world-demo/comprehensive-demo",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "s16", "real-world-demo", "comprehensive-demo"]
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Comprehensive demo executes successfully\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('success', true);",
+									"    pm.expect(response).to.have.property('results');",
+									"    pm.expect(response).to.have.property('statistics');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				},
+				{
+					"name": "S16: Demo Statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/s16/real-world-demo/statistics",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "s16", "real-world-demo", "statistics"]
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Demo statistics available\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('requestMetrics');",
+									"    pm.expect(response).to.have.property('responseTimeMetrics');",
+									"    pm.expect(response).to.have.property('systemMetrics');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Additional Endpoints",
+			"item": [
+				{
+					"name": "S16: Single Product Generation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Smart Wireless Headphones\",\n  \"category\": \"Electronics\",\n  \"market\": \"Consumer\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/s16/real-world-demo/e-commerce/product",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "s16", "real-world-demo", "e-commerce", "product"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "S16: SEO Content Generation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"productName\": \"Smart Wireless Headphones\",\n  \"description\": \"Premium noise-canceling wireless headphones with AI-powered sound optimization\",\n  \"category\": \"Electronics\",\n  \"targetKeywords\": [\"wireless headphones\", \"noise canceling\", \"premium audio\"],\n  \"competitionLevel\": \"high\",\n  \"targetAudience\": \"audio enthusiasts\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/s16/real-world-demo/e-commerce/seo",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "s16", "real-world-demo", "e-commerce", "seo"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "S16: Financial Dashboard",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"revenueData\": {\n    \"Q1\": 250000,\n    \"Q2\": 280000,\n    \"Q3\": 320000,\n    \"Q4\": 380000\n  },\n  \"expenseData\": {\n    \"Q1\": 180000,\n    \"Q2\": 195000,\n    \"Q3\": 210000,\n    \"Q4\": 245000\n  },\n  \"metrics\": [\"Revenue Growth\", \"Profit Margin\", \"EBITDA\"],\n  \"startDate\": \"2024-01-01\",\n  \"endDate\": \"2024-12-31\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/s16/real-world-demo/reports/financial-dashboard",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "s16", "real-world-demo", "reports", "financial-dashboard"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "S16: Contract Data Extraction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"contractContent\": \"SOFTWARE LICENSE AGREEMENT\\n\\nThis agreement is between Tech Solutions Inc. and Customer Corp.\\nEffective Date: January 1, 2025\\nTerm: 12 months\\nRenewal: Automatic\\n\\nLicense Fee: $50,000 annually\\nPayment Terms: Quarterly in advance\\n\\nSoftware: Spring AI Enterprise Platform\\nUsers: Up to 100 developers\\nSupport Level: Premium\\n\\nTermination: Either party with 30 days notice\\nConfidentiality: Standard NDA applies\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/s16/real-world-demo/extraction/contract",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "s16", "real-world-demo", "extraction", "contract"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "S16: Resume Data Extraction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resumeContent\": \"JOHN DOE\\nSenior Software Engineer\\n\\nContact: john.doe@email.com | +1-555-0123\\nLocation: Seattle, WA\\n\\nEXPERIENCE:\\n\\nSenior Software Engineer | Tech Solutions Inc. | 2020-Present\\n- Led Spring AI integration projects\\n- Developed microservices architecture\\n- Mentored junior developers\\n\\nSoftware Engineer | StartupCorp | 2018-2020\\n- Built React applications\\n- Implemented RESTful APIs\\n- Worked with agile methodologies\\n\\nEDUCATION:\\nB.S. Computer Science | University of Washington | 2018\\n\\nSKILLS:\\nJava, Spring Boot, React, Kubernetes, AI/ML\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/s16/real-world-demo/extraction/resume",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "s16", "real-world-demo", "extraction", "resume"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "S16: Batch Document Extraction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"documents\": [\n    {\n      \"id\": \"doc1\",\n      \"type\": \"INVOICE\",\n      \"content\": \"INVOICE #001\\nDate: 2024-12-01\\nAmount: $1,500\",\n      \"metadata\": {\"priority\": \"high\"}\n    },\n    {\n      \"id\": \"doc2\",\n      \"type\": \"CONTRACT\",\n      \"content\": \"Service Agreement\\nTerm: 6 months\\nValue: $25,000\",\n      \"metadata\": {\"priority\": \"medium\"}\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/s16/real-world-demo/extraction/batch",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "s16", "real-world-demo", "extraction", "batch"]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Set dynamic variables for timestamps",
+					"pm.globals.set('timestamp', new Date().toISOString());"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Global test for all requests",
+					"pm.test('Response time is reasonable', function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(30000);",
+					"});",
+					"",
+					"// Log response for debugging",
+					"if (pm.response.code !== 200) {",
+					"    console.log('Request failed:', pm.request.url);",
+					"    console.log('Response:', pm.response.text());",
+					"}"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "apiVersion",
+			"value": "v1",
+			"type": "string"
+		}
+	]
+}
