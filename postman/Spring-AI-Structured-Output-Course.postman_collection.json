@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "c8d4f0a1-8b2c-4d3e-9f1a-2b3c4d5e6f78",
 		"name": "Spring AI Structured Output Course",
-		"description": "Comprehensive collection for Spring AI structured output course demonstrations.\n\nThis collection provides progressive learning through 4 phases:\n1. Foundation & Setup (8 min)\n2. Converter Deep Dive (12 min) \n3. Production Patterns (15 min)\n4. Advanced Features (10 min)\n\nTotal: 45+ minutes of comprehensive Spring AI structured output demonstrations.",
+		"description": "Comprehensive collection for Spring AI structured output course demonstrations.\n\nThis collection provides progressive learning through 4 phases:\n1. Foundation & Setup (10 min) - S2 basics + S3 movie recommendations\n2. Converter Deep Dive (12 min) - S4 & S6 advanced patterns\n3. Production Patterns (15 min) - S16 real-world use cases\n4. Advanced Features (10 min) - S8, S14, S15 cutting-edge features\n\nTotal: 47+ minutes of comprehensive Spring AI structured output demonstrations including movie recommendation system examples.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -147,6 +147,109 @@
 									"    pm.expect(response).to.have.property('sentiment');",
 									"    pm.expect(response).to.have.property('confidence');",
 									"    pm.expect(['positive', 'negative', 'neutral']).to.include(response.sentiment);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				},
+				{
+					"name": "S3: Single Movie Recommendation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"genre\": \"Action\",\n  \"releaseYearAfter\": 2010,\n  \"mood\": \"exciting\",\n  \"maxResults\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/movies/recommend",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "movies", "recommend"]
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Movie recommendation returned', function () {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.have.property('title');",
+									"    pm.expect(response).to.have.property('year');",
+									"    pm.expect(response).to.have.property('director');",
+									"    pm.expect(response).to.have.property('genre');",
+									"    pm.expect(response).to.have.property('rating');",
+									"    pm.expect(response).to.have.property('summary');",
+									"    pm.expect(response).to.have.property('streamingPlatforms');",
+									"});",
+									"",
+									"pm.test('Movie data structure is valid', function () {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.title).to.be.a('string');",
+									"    pm.expect(response.year).to.be.a('number');",
+									"    pm.expect(response.rating).to.be.a('number');",
+									"    pm.expect(response.streamingPlatforms).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				},
+				{
+					"name": "S3: Multiple Movie Recommendations",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"genre\": \"Sci-Fi\",\n  \"releaseYearAfter\": 2015,\n  \"mood\": \"thoughtful\",\n  \"maxResults\": 5\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/movies/recommend/multiple",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "movies", "recommend", "multiple"]
+						}
+					},
+					"response": [],
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Multiple movie recommendations returned', function () {",
+									"    pm.response.to.have.status(200);",
+									"    const response = pm.response.json();",
+									"    pm.expect(response).to.be.an('array');",
+									"    pm.expect(response.length).to.be.at.least(1);",
+									"    pm.expect(response.length).to.be.at.most(5);",
+									"});",
+									"",
+									"pm.test('All movies have required fields', function () {",
+									"    const response = pm.response.json();",
+									"    response.forEach(movie => {",
+									"        pm.expect(movie).to.have.property('title');",
+									"        pm.expect(movie).to.have.property('year');",
+									"        pm.expect(movie).to.have.property('director');",
+									"        pm.expect(movie).to.have.property('genre');",
+									"        pm.expect(movie).to.have.property('rating');",
+									"        pm.expect(movie).to.have.property('summary');",
+									"        pm.expect(movie).to.have.property('streamingPlatforms');",
+									"    });",
 									"});"
 								],
 								"type": "text/javascript"

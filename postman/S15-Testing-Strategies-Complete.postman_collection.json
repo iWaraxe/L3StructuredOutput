@@ -1,0 +1,359 @@
+{
+  "info": {
+    "name": "S15 Testing Strategies Complete - Spring AI",
+    "description": "Section 15 comprehensive collection for testing strategies with Spring AI structured output.\n\nThis collection demonstrates:\n- Unit testing with mock AI responses\n- Integration testing patterns\n- Performance benchmarking\n- Test data generation\n- Error scenario testing\n- Concurrent testing patterns\n- Resilience and retry testing\n\nEndpoints: 7 total covering comprehensive testing methodologies",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "s15-testing-complete-12345"
+  },
+  "item": [
+    {
+      "name": "🧪 Unit Test Demo",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Unit test demo executed', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('testResults');",
+              "    pm.expect(response).to.have.property('mockUsed');",
+              "    pm.expect(response.mockUsed).to.be.true;",
+              "});",
+              "",
+              "pm.test('Test results include mock validation', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.testResults).to.be.an('object');",
+              "    pm.expect(response.testResults).to.have.property('passed');",
+              "    pm.expect(response.testResults).to.have.property('mockVerifications');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/testing/unit-test-demo?testType=mock&scenario=success",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "testing", "unit-test-demo"],
+          "query": [
+            {
+              "key": "testType",
+              "value": "mock"
+            },
+            {
+              "key": "scenario",
+              "value": "success"
+            }
+          ]
+        },
+        "description": "Demonstrate unit testing patterns with mock AI responses.\n\nTesting approaches:\n- Mock ChatModel responses\n- Verify converter behavior\n- Validate business logic\n- Test edge cases"
+      }
+    },
+    {
+      "name": "🔗 Integration Test Demo",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Integration test completed', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('integrationResults');",
+              "    pm.expect(response).to.have.property('endToEndVerified');",
+              "    pm.expect(response.endToEndVerified).to.be.true;",
+              "});",
+              "",
+              "pm.test('Integration includes AI service validation', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.integrationResults).to.have.property('aiServiceConnected');",
+              "    pm.expect(response.integrationResults).to.have.property('structuredOutputValidated');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/testing/integration-test-demo?includeRealAI=false&testDepth=full",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "testing", "integration-test-demo"],
+          "query": [
+            {
+              "key": "includeRealAI",
+              "value": "false"
+            },
+            {
+              "key": "testDepth",
+              "value": "full"
+            }
+          ]
+        },
+        "description": "Demonstrate integration testing patterns for AI services.\n\nValidates:\n- End-to-end request flow\n- Spring context configuration\n- Service layer integration\n- Response conversion pipelines"
+      }
+    },
+    {
+      "name": "⚡ Performance Test Demo",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Performance test executed', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('performanceResults');",
+              "    pm.expect(response).to.have.property('benchmarkCompleted');",
+              "    pm.expect(response.benchmarkCompleted).to.be.true;",
+              "});",
+              "",
+              "pm.test('Performance metrics are comprehensive', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.performanceResults).to.have.property('averageResponseTime');",
+              "    pm.expect(response.performanceResults).to.have.property('throughputPerSecond');",
+              "    pm.expect(response.performanceResults).to.have.property('memoryUsage');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/testing/performance-test-demo?iterations=10&concurrentUsers=5&testDuration=30",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "testing", "performance-test-demo"],
+          "query": [
+            {
+              "key": "iterations",
+              "value": "10"
+            },
+            {
+              "key": "concurrentUsers",
+              "value": "5"
+            },
+            {
+              "key": "testDuration",
+              "value": "30"
+            }
+          ]
+        },
+        "description": "Run performance benchmarks for AI structured output.\n\nMeasures:\n- Response time distribution\n- Throughput under load\n- Memory usage patterns\n- Concurrent user handling"
+      }
+    },
+    {
+      "name": "📝 Test Data Generation Demo",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Test data generated successfully', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('testData');",
+              "    pm.expect(response).to.have.property('dataVariations');",
+              "    pm.expect(response.testData).to.be.an('array');",
+              "});",
+              "",
+              "pm.test('Generated data includes edge cases', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.dataVariations).to.include.members(['normal', 'edge_cases', 'boundary_values']);",
+              "    pm.expect(response.testData.length).to.be.at.least(5);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/testing/test-data-demo?dataType=structured&includeEdgeCases=true&count=10",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "testing", "test-data-demo"],
+          "query": [
+            {
+              "key": "dataType",
+              "value": "structured"
+            },
+            {
+              "key": "includeEdgeCases",
+              "value": "true"
+            },
+            {
+              "key": "count",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Generate comprehensive test data for AI testing scenarios.\n\nGenerates:\n- Normal case test data\n- Edge case scenarios\n- Boundary value testing\n- Invalid input examples"
+      }
+    },
+    {
+      "name": "❌ Error Scenario Testing",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Error testing completed', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('errorScenarios');",
+              "    pm.expect(response).to.have.property('errorHandlingValidated');",
+              "    pm.expect(response.errorHandlingValidated).to.be.true;",
+              "});",
+              "",
+              "pm.test('Error scenarios covered comprehensively', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.errorScenarios).to.be.an('array');",
+              "    pm.expect(response.errorScenarios.length).to.be.at.least(3);",
+              "    ",
+              "    response.errorScenarios.forEach(scenario => {",
+              "        pm.expect(scenario).to.have.property('errorType');",
+              "        pm.expect(scenario).to.have.property('handled');",
+              "        pm.expect(scenario.handled).to.be.true;",
+              "    });",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"errorTypes\": [\n    \"api_timeout\",\n    \"invalid_response_format\",\n    \"conversion_failure\",\n    \"network_error\"\n  ],\n  \"testMode\": \"simulate\",\n  \"includeRetryTesting\": true\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/testing/error-testing",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "testing", "error-testing"]
+        },
+        "description": "Test error handling and recovery scenarios.\n\nError types tested:\n- API timeouts\n- Invalid response formats\n- Conversion failures\n- Network connectivity issues\n- Rate limiting scenarios"
+      }
+    },
+    {
+      "name": "🔄 Concurrent Testing Demo",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Concurrent testing completed', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('concurrentResults');",
+              "    pm.expect(response).to.have.property('threadSafety');",
+              "    pm.expect(response.threadSafety).to.be.true;",
+              "});",
+              "",
+              "pm.test('Concurrent execution metrics included', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.concurrentResults).to.have.property('threadsExecuted');",
+              "    pm.expect(response.concurrentResults).to.have.property('successRate');",
+              "    pm.expect(response.concurrentResults).to.have.property('averageResponseTime');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/testing/concurrent-test-demo?threadCount=10&requestsPerThread=5&testDuration=20",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "testing", "concurrent-test-demo"],
+          "query": [
+            {
+              "key": "threadCount",
+              "value": "10"
+            },
+            {
+              "key": "requestsPerThread",
+              "value": "5"
+            },
+            {
+              "key": "testDuration",
+              "value": "20"
+            }
+          ]
+        },
+        "description": "Test concurrent access and thread safety.\n\nValidates:\n- Thread-safe service behavior\n- Concurrent request handling\n- Resource contention management\n- Performance under concurrent load"
+      }
+    },
+    {
+      "name": "🛡️ Resilience Testing",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Resilience testing completed', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('resilienceResults');",
+              "    pm.expect(response).to.have.property('retryPatternsValidated');",
+              "    pm.expect(response.retryPatternsValidated).to.be.true;",
+              "});",
+              "",
+              "pm.test('Retry and circuit breaker patterns tested', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.resilienceResults).to.have.property('retryAttempts');",
+              "    pm.expect(response.resilienceResults).to.have.property('circuitBreakerTriggered');",
+              "    pm.expect(response.resilienceResults).to.have.property('fallbackExecuted');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"testScenarios\": [\n    \"intermittent_failures\",\n    \"service_degradation\",\n    \"rate_limiting\",\n    \"timeout_scenarios\"\n  ],\n  \"retryConfig\": {\n    \"maxAttempts\": 3,\n    \"backoffMultiplier\": 2,\n    \"initialDelay\": 1000\n  },\n  \"circuitBreakerConfig\": {\n    \"failureThreshold\": 5,\n    \"recoveryTimeout\": 10000\n  }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/testing/resilience-test",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "testing", "resilience-test"]
+        },
+        "description": "Test resilience patterns including retry logic and circuit breakers.\n\nResilience patterns:\n- Exponential backoff retry\n- Circuit breaker implementation\n- Fallback mechanisms\n- Graceful degradation\n- Timeout handling"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ]
+}

@@ -1,0 +1,281 @@
+{
+  "info": {
+    "name": "S6 Travel Collections - Spring AI",
+    "description": "Section 6 demonstrates collections and travel-focused structured output patterns.\n\nThis collection covers:\n- Travel destination recommendations\n- Activity suggestions\n- Itinerary planning\n- Packing list generation\n- Complex travel domain objects\n\nEndpoints: 5 total covering travel and tourism use cases",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "s6-travel-collections-12345"
+  },
+  "item": [
+    {
+      "name": "🌟 Recommend Single Destination",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Destination recommendation returned', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('destination');",
+              "    pm.expect(response).to.have.property('country');",
+              "    pm.expect(response).to.have.property('description');",
+              "    pm.expect(response).to.have.property('bestTimeToVisit');",
+              "});",
+              "",
+              "pm.test('Destination has complete information', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.destination).to.be.a('string');",
+              "    pm.expect(response.description.length).to.be.at.least(100);",
+              "    pm.expect(response).to.have.property('attractions');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"budget\": \"mid-range\",\n  \"travelStyle\": \"cultural\",\n  \"season\": \"spring\",\n  \"duration\": \"7 days\",\n  \"interests\": [\"history\", \"museums\", \"local cuisine\"]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/travel/destinations/recommend",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "travel", "destinations", "recommend"]
+        },
+        "description": "Get a single travel destination recommendation based on preferences.\n\nConsiders:\n- Budget constraints\n- Travel style preferences\n- Seasonal factors\n- Duration of stay\n- Personal interests"
+      }
+    },
+    {
+      "name": "🗺️ Suggest Multiple Destinations",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Multiple destinations suggested', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.be.an('array');",
+              "    pm.expect(response.length).to.be.at.least(2);",
+              "    pm.expect(response.length).to.be.at.most(5);",
+              "});",
+              "",
+              "pm.test('All destinations have required fields', function () {",
+              "    const response = pm.response.json();",
+              "    response.forEach(destination => {",
+              "        pm.expect(destination).to.have.property('destination');",
+              "        pm.expect(destination).to.have.property('country');",
+              "        pm.expect(destination).to.have.property('matchScore');",
+              "        pm.expect(destination.matchScore).to.be.at.least(0);",
+              "        pm.expect(destination.matchScore).to.be.at.most(100);",
+              "    });",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"budget\": \"luxury\",\n  \"travelStyle\": \"adventure\",\n  \"season\": \"summer\",\n  \"duration\": \"14 days\",\n  \"interests\": [\"hiking\", \"wildlife\", \"photography\"],\n  \"maxSuggestions\": 4\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/travel/destinations/suggest",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "travel", "destinations", "suggest"]
+        },
+        "description": "Get multiple destination suggestions with ranking.\n\nProvides:\n- Multiple destination options\n- Match scores for each destination\n- Ranked recommendations\n- Adventure-focused suggestions"
+      }
+    },
+    {
+      "name": "🎯 Activity Suggestions",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Activities suggested successfully', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.be.an('array');",
+              "    pm.expect(response.length).to.be.at.least(3);",
+              "});",
+              "",
+              "pm.test('Activities have complete information', function () {",
+              "    const response = pm.response.json();",
+              "    response.forEach(activity => {",
+              "        pm.expect(activity).to.be.a('string');",
+              "        pm.expect(activity.length).to.be.at.least(20);",
+              "    });",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/travel/activities?destination=Tokyo&interests=culture,food,technology&duration=3",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "travel", "activities"],
+          "query": [
+            {
+              "key": "destination",
+              "value": "Tokyo"
+            },
+            {
+              "key": "interests",
+              "value": "culture,food,technology"
+            },
+            {
+              "key": "duration",
+              "value": "3"
+            }
+          ]
+        },
+        "description": "Get activity suggestions for a specific destination.\n\nGenerates:\n- Destination-specific activities\n- Interest-based recommendations\n- Duration-appropriate suggestions\n- Local cultural experiences"
+      }
+    },
+    {
+      "name": "📅 Daily Itinerary",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Itinerary generated successfully', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('destination');",
+              "    pm.expect(response).to.have.property('days');",
+              "    pm.expect(response.days).to.be.an('array');",
+              "});",
+              "",
+              "pm.test('Each day has structured schedule', function () {",
+              "    const response = pm.response.json();",
+              "    response.days.forEach(day => {",
+              "        pm.expect(day).to.have.property('dayNumber');",
+              "        pm.expect(day).to.have.property('activities');",
+              "        pm.expect(day.activities).to.be.an('array');",
+              "    });",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/travel/itinerary?destination=Paris&days=5&style=romantic&pace=relaxed",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "travel", "itinerary"],
+          "query": [
+            {
+              "key": "destination",
+              "value": "Paris"
+            },
+            {
+              "key": "days",
+              "value": "5"
+            },
+            {
+              "key": "style",
+              "value": "romantic"
+            },
+            {
+              "key": "pace",
+              "value": "relaxed"
+            }
+          ]
+        },
+        "description": "Generate a detailed daily itinerary for travel.\n\nCreates:\n- Day-by-day schedule\n- Time-specific activities\n- Style-based recommendations\n- Paced travel plans"
+      }
+    },
+    {
+      "name": "🎒 Packing List Generator",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Packing list generated', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('destination');",
+              "    pm.expect(response).to.have.property('categories');",
+              "    pm.expect(response.categories).to.be.an('object');",
+              "});",
+              "",
+              "pm.test('Packing categories are comprehensive', function () {",
+              "    const response = pm.response.json();",
+              "    const categories = Object.keys(response.categories);",
+              "    pm.expect(categories).to.include.members(['clothing', 'essentials']);",
+              "    ",
+              "    Object.values(response.categories).forEach(items => {",
+              "        pm.expect(items).to.be.an('array');",
+              "        pm.expect(items.length).to.be.at.least(1);",
+              "    });",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/travel/packing-list?destination=Iceland&season=winter&duration=10&activities=hiking,photography",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "travel", "packing-list"],
+          "query": [
+            {
+              "key": "destination",
+              "value": "Iceland"
+            },
+            {
+              "key": "season",
+              "value": "winter"
+            },
+            {
+              "key": "duration",
+              "value": "10"
+            },
+            {
+              "key": "activities",
+              "value": "hiking,photography"
+            }
+          ]
+        },
+        "description": "Generate comprehensive packing list for travel.\n\nIncludes:\n- Destination-specific items\n- Weather-appropriate clothing\n- Activity-based equipment\n- Essential travel items\n- Categorized organization"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ]
+}

@@ -1,0 +1,488 @@
+{
+  "info": {
+    "name": "S14 Performance Optimization Complete - Spring AI",
+    "description": "Section 14 comprehensive collection for performance optimization patterns in Spring AI.\n\nThis collection demonstrates:\n- Caching strategies and cache statistics\n- Batch processing and parallel execution\n- Token optimization and estimation\n- Memory-efficient streaming\n- Performance comparison methodologies\n\nEndpoints: 11 total covering all performance optimization aspects",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "s14-performance-complete-12345"
+  },
+  "item": [
+    {
+      "name": "🚀 Cache Performance Demo",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Cache demo response received', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('result');",
+              "    pm.expect(response).to.have.property('cacheHit');",
+              "    pm.expect(response).to.have.property('executionTime');",
+              "});",
+              "",
+              "pm.test('Performance metrics included', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.executionTime).to.be.a('number');",
+              "    pm.expect(response.cacheHit).to.be.a('boolean');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/performance/cache/demo?cacheEnabled=true&query=machine learning trends",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "performance", "cache", "demo"],
+          "query": [
+            {
+              "key": "cacheEnabled",
+              "value": "true"
+            },
+            {
+              "key": "query",
+              "value": "machine learning trends"
+            }
+          ]
+        },
+        "description": "Demonstrate cache performance with AI responses.\n\nFeatures:\n- Cache hit/miss tracking\n- Execution time measurement\n- Cache enabled/disabled comparison\n- Performance metrics collection"
+      }
+    },
+    {
+      "name": "📊 Cache Statistics",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Cache statistics retrieved', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('cacheStats');",
+              "    pm.expect(response.cacheStats).to.have.property('hitRate');",
+              "    pm.expect(response.cacheStats).to.have.property('totalRequests');",
+              "});",
+              "",
+              "pm.test('Statistics are meaningful', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.cacheStats.hitRate).to.be.at.least(0);",
+              "    pm.expect(response.cacheStats.hitRate).to.be.at.most(100);",
+              "    pm.expect(response.cacheStats.totalRequests).to.be.a('number');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/performance/cache/stats",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "performance", "cache", "stats"]
+        },
+        "description": "Get comprehensive cache statistics and metrics.\n\nProvides:\n- Hit rate percentages\n- Total requests count\n- Cache efficiency metrics\n- Performance analytics"
+      }
+    },
+    {
+      "name": "🗑️ Clear Cache",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Cache cleared successfully', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('message');",
+              "    pm.expect(response.message).to.include('cleared');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/performance/cache/clear",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "performance", "cache", "clear"]
+        },
+        "description": "Clear all cached AI responses for fresh performance testing.\n\nUse cases:\n- Reset cache for benchmarking\n- Clear stale cached responses\n- Performance testing preparation"
+      }
+    },
+    {
+      "name": "📦 Batch Processing",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Batch processing completed', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('results');",
+              "    pm.expect(response.results).to.be.an('array');",
+              "    pm.expect(response).to.have.property('processingTime');",
+              "});",
+              "",
+              "pm.test('All batch items processed', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.results.length).to.be.at.least(1);",
+              "    response.results.forEach(result => {",
+              "        pm.expect(result).to.have.property('processed');",
+              "        pm.expect(result.processed).to.be.true;",
+              "    });",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"items\": [\n    \"Analyze customer feedback for product A\",\n    \"Analyze customer feedback for product B\",\n    \"Analyze customer feedback for product C\"\n  ],\n  \"batchSize\": 10,\n  \"processInParallel\": true\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/performance/batch/process",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "performance", "batch", "process"]
+        },
+        "description": "Process multiple AI requests in batches for efficiency.\n\nFeatures:\n- Configurable batch sizes\n- Parallel processing options\n- Batch completion tracking\n- Performance timing metrics"
+      }
+    },
+    {
+      "name": "🎯 Token Optimization",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Token optimization completed', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('optimizedPrompt');",
+              "    pm.expect(response).to.have.property('tokensSaved');",
+              "    pm.expect(response).to.have.property('originalTokens');",
+              "});",
+              "",
+              "pm.test('Token savings achieved', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.tokensSaved).to.be.a('number');",
+              "    pm.expect(response.originalTokens).to.be.a('number');",
+              "    pm.expect(response.tokensSaved).to.be.at.least(0);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"prompt\": \"Please provide a very detailed and comprehensive analysis of the current market trends in artificial intelligence and machine learning, including specific examples and case studies from various industries\",\n  \"optimizationLevel\": \"aggressive\",\n  \"preserveContext\": true\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/performance/tokens/optimize",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "performance", "tokens", "optimize"]
+        },
+        "description": "Optimize prompts to reduce token usage while preserving meaning.\n\nOptimizations:\n- Redundant word removal\n- Prompt compression\n- Context preservation\n- Token usage reduction"
+      }
+    },
+    {
+      "name": "🔢 Token Estimation",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Token estimation completed', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('estimatedTokens');",
+              "    pm.expect(response).to.have.property('text');",
+              "    pm.expect(response).to.have.property('costEstimate');",
+              "});",
+              "",
+              "pm.test('Token count is reasonable', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.estimatedTokens).to.be.a('number');",
+              "    pm.expect(response.estimatedTokens).to.be.at.least(1);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"text\": \"Analyze the performance characteristics of this Spring AI application and provide recommendations for optimization.\",\n  \"includeResponseEstimate\": true,\n  \"model\": \"gpt-4-turbo\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/performance/tokens/estimate",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "performance", "tokens", "estimate"]
+        },
+        "description": "Estimate token usage and costs before making AI requests.\n\nEstimates:\n- Input token count\n- Expected response tokens\n- Total cost calculation\n- Model-specific pricing"
+      }
+    },
+    {
+      "name": "⚡ Parallel Processing",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Parallel processing completed', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('results');",
+              "    pm.expect(response.results).to.be.an('array');",
+              "    pm.expect(response).to.have.property('parallelExecutionTime');",
+              "});",
+              "",
+              "pm.test('Parallel execution is efficient', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.parallelExecutionTime).to.be.a('number');",
+              "    pm.expect(response.results.length).to.be.at.least(2);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tasks\": [\n    \"Summarize recent AI research papers\",\n    \"Generate product descriptions for electronics\",\n    \"Analyze customer sentiment from reviews\"\n  ],\n  \"maxConcurrency\": 3,\n  \"timeout\": 30000\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/performance/parallel/process",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "performance", "parallel", "process"]
+        },
+        "description": "Execute multiple AI requests in parallel for improved throughput.\n\nFeatures:\n- Configurable concurrency levels\n- Timeout handling\n- Parallel execution metrics\n- Task completion tracking"
+      }
+    },
+    {
+      "name": "🔄 Map-Reduce Processing",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Map-reduce processing completed', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('mapResults');",
+              "    pm.expect(response).to.have.property('reduceResult');",
+              "    pm.expect(response.mapResults).to.be.an('array');",
+              "});",
+              "",
+              "pm.test('Map-reduce pattern executed correctly', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.mapResults.length).to.be.at.least(1);",
+              "    pm.expect(response.reduceResult).to.be.an('object');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"documents\": [\n    \"Customer feedback document 1: Great product, excellent service\",\n    \"Customer feedback document 2: Poor quality, needs improvement\",\n    \"Customer feedback document 3: Average experience, could be better\"\n  ],\n  \"mapFunction\": \"sentiment_analysis\",\n  \"reduceFunction\": \"aggregate_sentiments\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/performance/parallel/map-reduce",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "performance", "parallel", "map-reduce"]
+        },
+        "description": "Demonstrate map-reduce pattern for large-scale AI processing.\n\nPattern:\n- Map: Process individual documents\n- Reduce: Aggregate results\n- Parallel execution\n- Scalable processing"
+      }
+    },
+    {
+      "name": "🌊 Memory-Efficient Streaming",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Streaming processing completed', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('processedItems');",
+              "    pm.expect(response).to.have.property('memoryUsage');",
+              "    pm.expect(response.processedItems).to.be.a('number');",
+              "});",
+              "",
+              "pm.test('Memory efficiency achieved', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.memoryUsage).to.be.an('object');",
+              "    pm.expect(response.memoryUsage).to.have.property('peakMemoryMB');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"dataSize\": \"large\",\n  \"processingMode\": \"streaming\",\n  \"chunkSize\": 1000,\n  \"enableGarbageCollection\": true\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/performance/memory/stream",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "performance", "memory", "stream"]
+        },
+        "description": "Process large datasets using memory-efficient streaming.\n\nFeatures:\n- Chunked processing\n- Memory usage monitoring\n- Garbage collection optimization\n- Large dataset handling"
+      }
+    },
+    {
+      "name": "📈 Memory Statistics",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Memory statistics retrieved', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('memoryStats');",
+              "    pm.expect(response.memoryStats).to.have.property('totalMemoryMB');",
+              "    pm.expect(response.memoryStats).to.have.property('usedMemoryMB');",
+              "});",
+              "",
+              "pm.test('Memory metrics are valid', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.memoryStats.totalMemoryMB).to.be.a('number');",
+              "    pm.expect(response.memoryStats.usedMemoryMB).to.be.a('number');",
+              "    pm.expect(response.memoryStats.usedMemoryMB).to.be.at.most(response.memoryStats.totalMemoryMB);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/performance/memory/stats",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "performance", "memory", "stats"]
+        },
+        "description": "Get current memory usage statistics and metrics.\n\nProvides:\n- Total available memory\n- Current memory usage\n- Memory utilization percentage\n- Garbage collection statistics"
+      }
+    },
+    {
+      "name": "🔍 Performance Comparison",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Performance comparison completed', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('comparisons');",
+              "    pm.expect(response.comparisons).to.be.an('array');",
+              "    pm.expect(response).to.have.property('recommendation');",
+              "});",
+              "",
+              "pm.test('Comparison includes performance metrics', function () {",
+              "    const response = pm.response.json();",
+              "    response.comparisons.forEach(comparison => {",
+              "        pm.expect(comparison).to.have.property('approach');",
+              "        pm.expect(comparison).to.have.property('executionTime');",
+              "        pm.expect(comparison).to.have.property('memoryUsage');",
+              "    });",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"approaches\": [\n    \"sequential_processing\",\n    \"parallel_processing\",\n    \"cached_processing\"\n  ],\n  \"testData\": {\n    \"size\": \"medium\",\n    \"complexity\": \"high\"\n  },\n  \"iterations\": 3\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/performance/compare",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "performance", "compare"]
+        },
+        "description": "Compare different performance optimization approaches.\n\nCompares:\n- Sequential vs parallel processing\n- Cached vs non-cached responses\n- Memory usage patterns\n- Execution time metrics\n- Scalability characteristics"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080", 
+      "type": "string"
+    }
+  ]
+}

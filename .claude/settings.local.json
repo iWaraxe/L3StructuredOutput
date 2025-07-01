@@ -8,7 +8,13 @@
       "Bash(mvn test:*)",
       "Bash(touch:*)",
       "Bash(mvn clean:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(./mvnw spring-boot:*)",
+      "Bash(curl:*)",
+      "Bash(kill:*)",
+      "Bash(./mvnw:*)",
+      "Bash(grep:*)",
+      "Bash(python3:*)"
     ]
   },
   "enableAllProjectMcpServers": false

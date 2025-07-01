@@ -1,0 +1,198 @@
+{
+  "info": {
+    "name": "S5 Advanced Bean Converter - Spring AI",
+    "description": "Section 5 demonstrates advanced BeanOutputConverter patterns for complex domain objects.\n\nThis collection showcases:\n- Book recommendation systems\n- Geographic data handling\n- Mood-based filtering\n- Country/capital information systems\n- Complex nested object structures\n\nEndpoints: 4 total covering advanced bean conversion scenarios",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "s5-advanced-bean-12345"
+  },
+  "item": [
+    {
+      "name": "📚 Book Recommendation",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Book recommendation generated', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('title');",
+              "    pm.expect(response).to.have.property('author');",
+              "    pm.expect(response).to.have.property('genre');",
+              "    pm.expect(response).to.have.property('description');",
+              "});",
+              "",
+              "pm.test('Book data is complete', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.title).to.be.a('string');",
+              "    pm.expect(response.author).to.be.a('string');",
+              "    pm.expect(response.description.length).to.be.at.least(50);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/books/recommend?genre=Science Fiction&author=Isaac Asimov",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "books", "recommend"],
+          "query": [
+            {
+              "key": "genre",
+              "value": "Science Fiction"
+            },
+            {
+              "key": "author",
+              "value": "Isaac Asimov"
+            }
+          ]
+        },
+        "description": "Get book recommendation based on genre and author preferences.\n\nDemonstrates:\n- Complex book object creation\n- Genre-based filtering\n- Author-specific recommendations\n- Detailed book descriptions"
+      }
+    },
+    {
+      "name": "🎭 Books by Mood",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Mood-based books returned', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.be.an('array');",
+              "    pm.expect(response.length).to.be.at.least(1);",
+              "    pm.expect(response.length).to.be.at.most(5);",
+              "});",
+              "",
+              "pm.test('All books match mood criteria', function () {",
+              "    const response = pm.response.json();",
+              "    response.forEach(book => {",
+              "        pm.expect(book).to.have.property('title');",
+              "        pm.expect(book).to.have.property('moodMatch');",
+              "        pm.expect(book).to.have.property('reasonForRecommendation');",
+              "    });",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/books/recommend-by-mood?mood=inspiring&count=3",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "books", "recommend-by-mood"],
+          "query": [
+            {
+              "key": "mood",
+              "value": "inspiring"
+            },
+            {
+              "key": "count",
+              "value": "3"
+            }
+          ]
+        },
+        "description": "Get book recommendations based on desired mood.\n\nFeatures:\n- Mood-based filtering (inspiring, relaxing, exciting, etc.)\n- Multiple book recommendations\n- Justification for each recommendation\n- Mood matching scores"
+      }
+    },
+    {
+      "name": "🌍 Country Capital Information",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Capital information retrieved', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('country');",
+              "    pm.expect(response).to.have.property('capital');",
+              "    pm.expect(response).to.have.property('population');",
+              "    pm.expect(response).to.have.property('facts');",
+              "});",
+              "",
+              "pm.test('Geographic data is accurate', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.country).to.include('Japan');",
+              "    pm.expect(response.capital).to.include('Tokyo');",
+              "    pm.expect(response.population).to.be.a('number');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/capitals/Japan",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "capitals", "Japan"]
+        },
+        "description": "Get detailed information about a country's capital.\n\nProvides:\n- Capital city name\n- Population statistics\n- Interesting facts\n- Geographic information"
+      }
+    },
+    {
+      "name": "🔄 Compare Multiple Capitals",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Capital comparison generated', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('comparison');",
+              "    pm.expect(response).to.have.property('capitals');",
+              "    pm.expect(response.capitals).to.be.an('array');",
+              "});",
+              "",
+              "pm.test('Comparison includes all requested countries', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.capitals.length).to.be.at.least(2);",
+              "    response.capitals.forEach(capital => {",
+              "        pm.expect(capital).to.have.property('country');",
+              "        pm.expect(capital).to.have.property('capital');",
+              "        pm.expect(capital).to.have.property('population');",
+              "    });",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/capitals/compare?countries=France,Germany,Italy",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "capitals", "compare"],
+          "query": [
+            {
+              "key": "countries",
+              "value": "France,Germany,Italy"
+            }
+          ]
+        },
+        "description": "Compare capitals of multiple countries.\n\nGenerates:\n- Side-by-side capital comparison\n- Population statistics\n- Cultural differences\n- Economic indicators\n- Tourism information"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ]
+}

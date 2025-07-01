@@ -1,0 +1,214 @@
+{
+  "info": {
+    "name": "S8 JSON Modes Complete - Spring AI",
+    "description": "Section 8 comprehensive collection for OpenAI JSON modes and schema validation.\n\nThis collection demonstrates:\n- JSON_OBJECT mode for valid JSON responses\n- JSON_SCHEMA mode with strict schema validation\n- Complex nested object structures\n- Schema comparison and validation patterns\n\nEndpoints: 4 total covering all JSON mode capabilities",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "s8-json-modes-complete-12345"
+  },
+  "item": [
+    {
+      "name": "🔧 JSON Object Mode",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('JSON Object mode response', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.be.an('object');",
+              "    pm.expect(response).to.have.property('data');",
+              "});",
+              "",
+              "pm.test('Response is valid JSON', function () {",
+              "    const responseText = pm.response.text();",
+              "    pm.expect(() => JSON.parse(responseText)).to.not.throw();",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/json-modes/openai/json-object?topic=weather&location=San Francisco",
+          "host": ["{{baseUrl}}"],
+          "path": ["json-modes", "openai", "json-object"],
+          "query": [
+            {
+              "key": "topic",
+              "value": "weather"
+            },
+            {
+              "key": "location",
+              "value": "San Francisco"
+            }
+          ]
+        },
+        "description": "Use JSON_OBJECT mode to ensure valid JSON responses.\n\nFeatures:\n- Guaranteed valid JSON output\n- Flexible structure\n- No strict schema enforcement\n- OpenAI JSON_OBJECT mode demonstration"
+      }
+    },
+    {
+      "name": "📋 JSON Schema Mode",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('JSON Schema mode response', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.be.an('object');",
+              "    pm.expect(response).to.have.property('name');",
+              "    pm.expect(response).to.have.property('temperature');",
+              "    pm.expect(response).to.have.property('description');",
+              "});",
+              "",
+              "pm.test('Response conforms to schema', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.temperature).to.be.a('number');",
+              "    pm.expect(response.name).to.be.a('string');",
+              "    pm.expect(response.description).to.be.a('string');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/json-modes/openai/json-schema?location=Tokyo&format=detailed",
+          "host": ["{{baseUrl}}"],
+          "path": ["json-modes", "openai", "json-schema"],
+          "query": [
+            {
+              "key": "location",
+              "value": "Tokyo"
+            },
+            {
+              "key": "format",
+              "value": "detailed"
+            }
+          ]
+        },
+        "description": "Use JSON_SCHEMA mode with strict schema validation.\n\nDemonstrates:\n- Schema-enforced structure\n- Type validation\n- Required field enforcement\n- OpenAI JSON_SCHEMA mode capabilities"
+      }
+    },
+    {
+      "name": "🔍 Complex Search Schema",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Complex search results returned', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('results');",
+              "    pm.expect(response.results).to.be.an('array');",
+              "    pm.expect(response).to.have.property('metadata');",
+              "});",
+              "",
+              "pm.test('Nested objects structure is correct', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.metadata).to.be.an('object');",
+              "    pm.expect(response.metadata).to.have.property('totalResults');",
+              "    pm.expect(response.metadata).to.have.property('searchTime');",
+              "    ",
+              "    if (response.results.length > 0) {",
+              "        response.results.forEach(result => {",
+              "            pm.expect(result).to.have.property('title');",
+              "            pm.expect(result).to.have.property('relevance');",
+              "        });",
+              "    }",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/json-modes/openai/search?query=artificial intelligence&maxResults=5&includeSnippets=true",
+          "host": ["{{baseUrl}}"],
+          "path": ["json-modes", "openai", "search"],
+          "query": [
+            {
+              "key": "query",
+              "value": "artificial intelligence"
+            },
+            {
+              "key": "maxResults",
+              "value": "5"
+            },
+            {
+              "key": "includeSnippets",
+              "value": "true"
+            }
+          ]
+        },
+        "description": "Complex JSON_SCHEMA example with nested objects and arrays.\n\nFeatures:\n- Nested object structures\n- Array of objects\n- Metadata inclusion\n- Complex schema validation\n- Search result formatting"
+      }
+    },
+    {
+      "name": "⚖️ Compare JSON Modes",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('JSON modes comparison completed', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('jsonObjectResult');",
+              "    pm.expect(response).to.have.property('jsonSchemaResult');",
+              "    pm.expect(response).to.have.property('comparison');",
+              "});",
+              "",
+              "pm.test('Comparison analysis is comprehensive', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.comparison).to.be.an('object');",
+              "    pm.expect(response.comparison).to.have.property('structureCompliance');",
+              "    pm.expect(response.comparison).to.have.property('dataConsistency');",
+              "    pm.expect(response.comparison).to.have.property('recommendation');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"prompt\": \"Generate a product recommendation for outdoor gear\",\n  \"testBothModes\": true,\n  \"includeAnalysis\": true\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/json-modes/openai/compare-json-modes",
+          "host": ["{{baseUrl}}"],
+          "path": ["json-modes", "openai", "compare-json-modes"]
+        },
+        "description": "Compare JSON_OBJECT vs JSON_SCHEMA modes side-by-side.\n\nProvides:\n- Both mode results\n- Structural comparison\n- Compliance analysis\n- Performance metrics\n- Usage recommendations"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ]
+}

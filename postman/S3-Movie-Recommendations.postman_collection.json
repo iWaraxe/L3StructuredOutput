@@ -1,0 +1,274 @@
+{
+  "info": {
+    "name": "S3 Movie Recommendations - Spring AI Structured Output",
+    "description": "Dedicated collection for S3 movie recommendation endpoints demonstrating Spring AI's structured output capabilities with movie data.\n\nThis collection focuses specifically on:\n- Single movie recommendations\n- Multiple movie recommendations\n- Genre-based filtering\n- Mood-based recommendations\n- Structured movie data with ratings and streaming platforms",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "s3-movie-recs-12345"
+  },
+  "item": [
+    {
+      "name": "🎬 Single Movie Recommendation",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Movie recommendation returned', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('title');",
+              "    pm.expect(response).to.have.property('year');",
+              "    pm.expect(response).to.have.property('director');",
+              "    pm.expect(response).to.have.property('genre');",
+              "    pm.expect(response).to.have.property('rating');",
+              "    pm.expect(response).to.have.property('summary');",
+              "    pm.expect(response).to.have.property('streamingPlatforms');",
+              "});",
+              "",
+              "pm.test('Movie data structure is valid', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.title).to.be.a('string');",
+              "    pm.expect(response.year).to.be.a('number');",
+              "    pm.expect(response.rating).to.be.a('number');",
+              "    pm.expect(response.streamingPlatforms).to.be.an('array');",
+              "});",
+              "",
+              "pm.test('Rating is within valid range', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.rating).to.be.at.least(0);",
+              "    pm.expect(response.rating).to.be.at.most(10);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"genre\": \"Action\",\n  \"releaseYearAfter\": 2010,\n  \"mood\": \"exciting\",\n  \"maxResults\": 1\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/movies/recommend",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "movies", "recommend"]
+        },
+        "description": "Get a single movie recommendation based on user preferences.\n\nDemonstrates:\n- BeanOutputConverter for complex movie objects\n- Structured data extraction from AI responses\n- Genre and mood-based filtering\n- Year-based filtering for modern movies"
+      }
+    },
+    {
+      "name": "🎭 Comedy Movie Recommendation",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Comedy movie recommendation returned', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('title');",
+              "    pm.expect(response.genre.toLowerCase()).to.include('comedy');",
+              "});",
+              "",
+              "pm.test('Movie is from requested time period', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.year).to.be.at.least(2000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"genre\": \"Comedy\",\n  \"releaseYearAfter\": 2000,\n  \"mood\": \"lighthearted\",\n  \"maxResults\": 1\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/movies/recommend",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "movies", "recommend"]
+        },
+        "description": "Get a comedy movie recommendation for a lighthearted mood.\n\nTests:\n- Genre-specific filtering\n- Mood matching\n- Modern movie selection (2000+)"
+      }
+    },
+    {
+      "name": "🎬 Multiple Movie Recommendations",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Multiple movie recommendations returned', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.be.an('array');",
+              "    pm.expect(response.length).to.be.at.least(1);",
+              "    pm.expect(response.length).to.be.at.most(5);",
+              "});",
+              "",
+              "pm.test('All movies have required fields', function () {",
+              "    const response = pm.response.json();",
+              "    response.forEach(movie => {",
+              "        pm.expect(movie).to.have.property('title');",
+              "        pm.expect(movie).to.have.property('year');",
+              "        pm.expect(movie).to.have.property('director');",
+              "        pm.expect(movie).to.have.property('genre');",
+              "        pm.expect(movie).to.have.property('rating');",
+              "        pm.expect(movie).to.have.property('summary');",
+              "        pm.expect(movie).to.have.property('streamingPlatforms');",
+              "    });",
+              "});",
+              "",
+              "pm.test('All movies match genre criteria', function () {",
+              "    const response = pm.response.json();",
+              "    response.forEach(movie => {",
+              "        pm.expect(movie.genre.toLowerCase()).to.include('sci-fi');",
+              "    });",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"genre\": \"Sci-Fi\",\n  \"releaseYearAfter\": 2015,\n  \"mood\": \"thoughtful\",\n  \"maxResults\": 5\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/movies/recommend/multiple",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "movies", "recommend", "multiple"]
+        },
+        "description": "Get multiple sci-fi movie recommendations for a thoughtful mood.\n\nDemonstrates:\n- List output conversion\n- Multiple structured objects in response\n- Genre consistency across results\n- Recent movie filtering (2015+)"
+      }
+    },
+    {
+      "name": "🎪 Diverse Genre Collection",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Diverse movie collection returned', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.be.an('array');",
+              "    pm.expect(response.length).to.be.at.least(3);",
+              "});",
+              "",
+              "pm.test('Movies have streaming platform info', function () {",
+              "    const response = pm.response.json();",
+              "    response.forEach(movie => {",
+              "        pm.expect(movie.streamingPlatforms).to.be.an('array');",
+              "        pm.expect(movie.streamingPlatforms.length).to.be.at.least(1);",
+              "    });",
+              "});",
+              "",
+              "pm.test('All movies are highly rated', function () {",
+              "    const response = pm.response.json();",
+              "    response.forEach(movie => {",
+              "        pm.expect(movie.rating).to.be.at.least(7.0);",
+              "    });",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"genre\": \"Drama\",\n  \"releaseYearAfter\": 2010,\n  \"mood\": \"inspiring\",\n  \"maxResults\": 4\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/movies/recommend/multiple",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "movies", "recommend", "multiple"]
+        },
+        "description": "Get inspiring drama recommendations for quality entertainment.\n\nFocuses on:\n- High-quality drama films\n- Inspiring and uplifting content\n- Modern releases with good ratings\n- Streaming availability information"
+      }
+    },
+    {
+      "name": "🌟 Classic Movie Request",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Classic movie recommendation returned', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('title');",
+              "    pm.expect(response.year).to.be.at.least(1990);",
+              "});",
+              "",
+              "pm.test('Movie has detailed information', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.summary).to.be.a('string');",
+              "    pm.expect(response.summary.length).to.be.at.least(50);",
+              "    pm.expect(response.director).to.be.a('string');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"genre\": \"Thriller\",\n  \"releaseYearAfter\": 1990,\n  \"mood\": \"suspenseful\",\n  \"maxResults\": 1\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/movies/recommend",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "movies", "recommend"]
+        },
+        "description": "Get a classic thriller recommendation for suspenseful entertainment.\n\nTests:\n- Older movie selection criteria\n- Mood-based recommendation accuracy\n- Detailed movie information extraction\n- Summary quality and length"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ]
+}

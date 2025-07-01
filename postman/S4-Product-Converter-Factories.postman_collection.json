@@ -1,0 +1,290 @@
+{
+  "info": {
+    "name": "S4 Product Converter Factories - Spring AI",
+    "description": "Section 4 focuses on converter factories and product generation patterns using Spring AI structured output.\n\nThis collection demonstrates:\n- Product entity generation\n- List converters for product features\n- Map converters for product properties\n- Complex object conversion patterns\n- Factory pattern implementations\n\nEndpoints: 6 total covering product generation scenarios",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "s4-product-factories-12345"
+  },
+  "item": [
+    {
+      "name": "🏪 Generate Single Product",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Product generated successfully', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('name');",
+              "    pm.expect(response).to.have.property('price');",
+              "    pm.expect(response).to.have.property('category');",
+              "    pm.expect(response).to.have.property('description');",
+              "});",
+              "",
+              "pm.test('Product data types are correct', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.name).to.be.a('string');",
+              "    pm.expect(response.price).to.be.a('number');",
+              "    pm.expect(response.category).to.be.a('string');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/products/generate?category=Electronics&priceRange=100-500",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "products", "generate"],
+          "query": [
+            {
+              "key": "category",
+              "value": "Electronics"
+            },
+            {
+              "key": "priceRange", 
+              "value": "100-500"
+            }
+          ]
+        },
+        "description": "Generate a single product using BeanOutputConverter.\n\nDemonstrates:\n- Product entity creation\n- Category-based filtering\n- Price range specifications\n- Structured product data"
+      }
+    },
+    {
+      "name": "📋 Generate Product List",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Product list generated', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.be.an('array');",
+              "    pm.expect(response.length).to.be.at.least(1);",
+              "    pm.expect(response.length).to.be.at.most(10);",
+              "});",
+              "",
+              "pm.test('All products have required fields', function () {",
+              "    const response = pm.response.json();",
+              "    response.forEach(product => {",
+              "        pm.expect(product).to.have.property('name');",
+              "        pm.expect(product).to.have.property('price');",
+              "        pm.expect(product).to.have.property('category');",
+              "    });",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/products/generate/list?category=Home&count=5",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "products", "generate", "list"],
+          "query": [
+            {
+              "key": "category",
+              "value": "Home"
+            },
+            {
+              "key": "count",
+              "value": "5"
+            }
+          ]
+        },
+        "description": "Generate a list of products using ListOutputConverter.\n\nFeatures:\n- Multiple product generation\n- List conversion patterns\n- Category filtering\n- Count limitations"
+      }
+    },
+    {
+      "name": "📊 Generate Product Summary",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Product summary generated', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('summary');",
+              "    pm.expect(response).to.have.property('keyFeatures');",
+              "    pm.expect(response).to.have.property('targetAudience');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/products/generate/summary?productType=Smartphone",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "products", "generate", "summary"],
+          "query": [
+            {
+              "key": "productType",
+              "value": "Smartphone"
+            }
+          ]
+        },
+        "description": "Generate comprehensive product summary.\n\nIncludes:\n- Product overview\n- Key features list\n- Target audience analysis\n- Market positioning"
+      }
+    },
+    {
+      "name": "⭐ Generate Product Review",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Product review generated', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('rating');",
+              "    pm.expect(response).to.have.property('review');",
+              "    pm.expect(response).to.have.property('pros');",
+              "    pm.expect(response).to.have.property('cons');",
+              "});",
+              "",
+              "pm.test('Rating is valid', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.rating).to.be.at.least(1);",
+              "    pm.expect(response.rating).to.be.at.most(5);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/products/generate/review?productName=MacBook Pro&rating=4.5",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "products", "generate", "review"],
+          "query": [
+            {
+              "key": "productName",
+              "value": "MacBook Pro"
+            },
+            {
+              "key": "rating",
+              "value": "4.5"
+            }
+          ]
+        },
+        "description": "Generate realistic product review.\n\nGenerates:\n- Overall rating\n- Detailed review text\n- Pros and cons lists\n- Recommendation summary"
+      }
+    },
+    {
+      "name": "🔧 Generate Product Features",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Product features generated', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.be.an('array');",
+              "    pm.expect(response.length).to.be.at.least(3);",
+              "});",
+              "",
+              "pm.test('Features are descriptive', function () {",
+              "    const response = pm.response.json();",
+              "    response.forEach(feature => {",
+              "        pm.expect(feature).to.be.a('string');",
+              "        pm.expect(feature.length).to.be.at.least(10);",
+              "    });",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/products/generate/features?category=Gaming&productType=Laptop",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "products", "generate", "features"],
+          "query": [
+            {
+              "key": "category",
+              "value": "Gaming"
+            },
+            {
+              "key": "productType",
+              "value": "Laptop"
+            }
+          ]
+        },
+        "description": "Generate product features list using ListOutputConverter.\n\nCreates:\n- Detailed feature descriptions\n- Category-specific features\n- Technical specifications\n- Benefit-focused content"
+      }
+    },
+    {
+      "name": "🏷️ Generate Product Properties",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Product properties generated', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.be.an('object');",
+              "    pm.expect(Object.keys(response).length).to.be.at.least(3);",
+              "});",
+              "",
+              "pm.test('Properties have valid values', function () {",
+              "    const response = pm.response.json();",
+              "    Object.values(response).forEach(value => {",
+              "        pm.expect(value).to.not.be.empty;",
+              "    });",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/products/generate/properties?productType=Camera&brand=Canon",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "products", "generate", "properties"],
+          "query": [
+            {
+              "key": "productType",
+              "value": "Camera"
+            },
+            {
+              "key": "brand",
+              "value": "Canon"
+            }
+          ]
+        },
+        "description": "Generate product properties using MapOutputConverter.\n\nGenerates:\n- Key-value property pairs\n- Technical specifications\n- Brand-specific attributes\n- Detailed product metadata"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ]
+}

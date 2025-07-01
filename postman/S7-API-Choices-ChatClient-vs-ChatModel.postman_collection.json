@@ -1,0 +1,320 @@
+{
+  "info": {
+    "name": "S7 API Choices - ChatClient vs ChatModel",
+    "description": "Section 7 demonstrates the differences between ChatClient and ChatModel APIs in Spring AI.\n\nThis collection compares:\n- ChatClient API patterns\n- ChatModel API patterns\n- Financial advice generation\n- Weather information systems\n- API design decisions\n\nEndpoints: 6 total comparing different API approaches",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "s7-api-choices-12345"
+  },
+  "item": [
+    {
+      "name": "💰 Budget Tips (ChatClient)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Budget tips generated via ChatClient', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('tips');",
+              "    pm.expect(response.tips).to.be.an('array');",
+              "    pm.expect(response.tips.length).to.be.at.least(3);",
+              "});",
+              "",
+              "pm.test('Tips are actionable and specific', function () {",
+              "    const response = pm.response.json();",
+              "    response.tips.forEach(tip => {",
+              "        pm.expect(tip).to.be.a('string');",
+              "        pm.expect(tip.length).to.be.at.least(30);",
+              "    });",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/finance/budget-tips?income=75000&expenses=65000&goals=save for house",
+          "host": ["{{baseUrl}}"],
+          "path": ["finance", "budget-tips"],
+          "query": [
+            {
+              "key": "income",
+              "value": "75000"
+            },
+            {
+              "key": "expenses",
+              "value": "65000"
+            },
+            {
+              "key": "goals",
+              "value": "save for house"
+            }
+          ]
+        },
+        "description": "Get personalized budget tips using ChatClient API.\n\nDemonstrates:\n- ChatClient fluent interface\n- Structured output with ChatClient\n- Budget analysis patterns\n- Goal-oriented financial advice"
+      }
+    },
+    {
+      "name": "📊 Investment Analysis (ChatModel)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Investment analysis generated via ChatModel', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('analysis');",
+              "    pm.expect(response).to.have.property('recommendation');",
+              "    pm.expect(response).to.have.property('riskLevel');",
+              "});",
+              "",
+              "pm.test('Analysis includes risk assessment', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(['LOW', 'MEDIUM', 'HIGH']).to.include(response.riskLevel);",
+              "    pm.expect(response.analysis).to.be.a('string');",
+              "    pm.expect(response.analysis.length).to.be.at.least(100);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"investmentType\": \"index funds\",\n  \"amount\": 10000,\n  \"timeHorizon\": \"10 years\",\n  \"riskTolerance\": \"moderate\",\n  \"age\": 35\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/finance/investment-analysis",
+          "host": ["{{baseUrl}}"],
+          "path": ["finance", "investment-analysis"]
+        },
+        "description": "Analyze investment options using ChatModel API.\n\nFeatures:\n- ChatModel direct API usage\n- Complex investment analysis\n- Risk assessment calculations\n- Time horizon considerations"
+      }
+    },
+    {
+      "name": "📋 Financial Plan (ChatClient)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Financial plan generated via ChatClient', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('plan');",
+              "    pm.expect(response).to.have.property('milestones');",
+              "    pm.expect(response.milestones).to.be.an('array');",
+              "});",
+              "",
+              "pm.test('Plan includes actionable milestones', function () {",
+              "    const response = pm.response.json();",
+              "    response.milestones.forEach(milestone => {",
+              "        pm.expect(milestone).to.have.property('timeframe');",
+              "        pm.expect(milestone).to.have.property('goal');",
+              "        pm.expect(milestone).to.have.property('action');",
+              "    });",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/finance/plan?age=28&income=85000&debt=45000&goals=retirement,home",
+          "host": ["{{baseUrl}}"],
+          "path": ["finance", "plan"],
+          "query": [
+            {
+              "key": "age",
+              "value": "28"
+            },
+            {
+              "key": "income",
+              "value": "85000"
+            },
+            {
+              "key": "debt",
+              "value": "45000"
+            },
+            {
+              "key": "goals",
+              "value": "retirement,home"
+            }
+          ]
+        },
+        "description": "Generate comprehensive financial plan using ChatClient.\n\nCreates:\n- Personalized financial roadmap\n- Time-based milestones\n- Goal-oriented planning\n- Debt management strategies"
+      }
+    },
+    {
+      "name": "💡 Investment Options (ChatModel)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Investment options generated via ChatModel', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('options');",
+              "    pm.expect(response.options).to.be.an('array');",
+              "    pm.expect(response.options.length).to.be.at.least(3);",
+              "});",
+              "",
+              "pm.test('Each option has complete information', function () {",
+              "    const response = pm.response.json();",
+              "    response.options.forEach(option => {",
+              "        pm.expect(option).to.have.property('name');",
+              "        pm.expect(option).to.have.property('riskLevel');",
+              "        pm.expect(option).to.have.property('expectedReturn');",
+              "        pm.expect(option).to.have.property('description');",
+              "    });",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/finance/investment-options?budget=25000&risk=medium&timeline=5years",
+          "host": ["{{baseUrl}}"],
+          "path": ["finance", "investment-options"],
+          "query": [
+            {
+              "key": "budget",
+              "value": "25000"
+            },
+            {
+              "key": "risk",
+              "value": "medium"
+            },
+            {
+              "key": "timeline",
+              "value": "5years"
+            }
+          ]
+        },
+        "description": "Get investment options using ChatModel API.\n\nProvides:\n- Multiple investment alternatives\n- Risk-adjusted recommendations\n- Expected return calculations\n- Timeline-appropriate options"
+      }
+    },
+    {
+      "name": "🌤️ Weather via ChatClient",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Weather info via ChatClient', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('location');",
+              "    pm.expect(response).to.have.property('temperature');",
+              "    pm.expect(response).to.have.property('description');",
+              "});",
+              "",
+              "pm.test('Weather data is structured', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.location).to.be.a('string');",
+              "    pm.expect(response.temperature).to.be.a('number');",
+              "    pm.expect(response.description).to.be.a('string');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/weather/client?location=New York&units=fahrenheit",
+          "host": ["{{baseUrl}}"],
+          "path": ["weather", "client"],
+          "query": [
+            {
+              "key": "location",
+              "value": "New York"
+            },
+            {
+              "key": "units",
+              "value": "fahrenheit"
+            }
+          ]
+        },
+        "description": "Get weather information using ChatClient API.\n\nCompare with ChatModel approach:\n- ChatClient fluent interface\n- Simplified API usage\n- Built-in conversion patterns\n- Cleaner code structure"
+      }
+    },
+    {
+      "name": "🌡️ Weather via ChatModel",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Weather info via ChatModel', function () {",
+              "    pm.response.to.have.status(200);",
+              "    const response = pm.response.json();",
+              "    pm.expect(response).to.have.property('location');",
+              "    pm.expect(response).to.have.property('temperature');",
+              "    pm.expect(response).to.have.property('description');",
+              "});",
+              "",
+              "pm.test('Weather matches ChatClient format', function () {",
+              "    const response = pm.response.json();",
+              "    pm.expect(response.location).to.be.a('string');",
+              "    pm.expect(response.temperature).to.be.a('number');",
+              "    pm.expect(response.description).to.be.a('string');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/weather/model?location=Los Angeles&units=celsius",
+          "host": ["{{baseUrl}}"],
+          "path": ["weather", "model"],
+          "query": [
+            {
+              "key": "location",
+              "value": "Los Angeles"
+            },
+            {
+              "key": "units",
+              "value": "celsius"
+            }
+          ]
+        },
+        "description": "Get weather information using ChatModel API.\n\nCompare with ChatClient approach:\n- ChatModel direct API usage\n- More verbose implementation\n- Manual conversion handling\n- Lower-level control"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ]
+}
