@@ -10,6 +10,9 @@ public record RecipeRequest(
         String cuisine,
         String dishType,
         List<String> ingredients,
-        String dietaryRestrictions
+        List<String> dietaryRestrictions,
+        Integer cookingTime,
+        Integer servings,
+        String difficulty
 ) {
 }

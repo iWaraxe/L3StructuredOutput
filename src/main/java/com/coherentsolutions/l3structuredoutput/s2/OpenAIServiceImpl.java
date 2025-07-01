@@ -59,12 +59,11 @@ public class OpenAIServiceImpl implements OpenAIService {
         // Create a template from our resource
         PromptTemplate promptTemplate = PromptTemplateUtils.fromResource(weatherForecastPrompt);
 
-        // Create a parameters map
-        Map<String, Object> parameters = Map.of(
-                "location", request.location(),
-                "forecastType", request.forecastType(),
-                "format", format
-        );
+        // Create a parameters map (using HashMap to handle potential null values)
+        Map<String, Object> parameters = new java.util.HashMap<>();
+        parameters.put("location", request.location() != null ? request.location() : "Unknown");
+        parameters.put("forecastType", request.forecastType() != null ? request.forecastType() : "general");
+        parameters.put("format", format);
 
         // Render the template and create a prompt
         Prompt prompt = new Prompt(promptTemplate.render(parameters));
@@ -89,17 +88,25 @@ public class OpenAIServiceImpl implements OpenAIService {
         PromptTemplate promptTemplate = PromptTemplateUtils.fromResource(recipeGeneratorPrompt);
 
         // Format ingredients list as a comma-separated string
-        String ingredientsList = request.ingredients().stream()
-                .collect(Collectors.joining(", "));
+        String ingredientsList = request.ingredients() != null && !request.ingredients().isEmpty() 
+                ? request.ingredients().stream().collect(Collectors.joining(", ")) 
+                : "any available ingredients";
 
-        // Create a parameters map
-        Map<String, Object> parameters = Map.of(
-                "cuisine", request.cuisine(),
-                "dishType", request.dishType(),
-                "ingredients", ingredientsList,
-                "dietaryRestrictions", request.dietaryRestrictions(),
-                "format", format
-        );
+        // Format dietary restrictions list
+        String dietaryRestrictionsList = request.dietaryRestrictions() != null && !request.dietaryRestrictions().isEmpty()
+                ? request.dietaryRestrictions().stream().collect(Collectors.joining(", "))
+                : "none";
+
+        // Create a parameters map (using HashMap to handle potential null values)
+        Map<String, Object> parameters = new java.util.HashMap<>();
+        parameters.put("cuisine", request.cuisine() != null ? request.cuisine() : "any");
+        parameters.put("dishType", request.dishType() != null ? request.dishType() : "main course");
+        parameters.put("ingredients", ingredientsList);
+        parameters.put("dietaryRestrictions", dietaryRestrictionsList);
+        parameters.put("cookingTime", request.cookingTime() != null ? request.cookingTime() : 30);
+        parameters.put("servings", request.servings() != null ? request.servings() : 4);
+        parameters.put("difficulty", request.difficulty() != null ? request.difficulty() : "intermediate");
+        parameters.put("format", format);
 
         // Render the template and create a prompt
         Prompt prompt = new Prompt(promptTemplate.render(parameters));
@@ -123,11 +130,10 @@ public class OpenAIServiceImpl implements OpenAIService {
         // Create a template from our resource
         PromptTemplate promptTemplate = PromptTemplateUtils.fromResource(sentimentAnalysisPrompt);
 
-        // Create a parameters map
-        Map<String, Object> parameters = Map.of(
-                "text", request.text(),
-                "format", format
-        );
+        // Create a parameters map (using HashMap to handle potential null values)
+        Map<String, Object> parameters = new java.util.HashMap<>();
+        parameters.put("text", request.text() != null ? request.text() : "No text provided");
+        parameters.put("format", format);
 
         // Render the template and create a prompt
         Prompt prompt = new Prompt(promptTemplate.render(parameters));
