@@ -43,7 +43,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"budget\": \"mid-range\",\n  \"travelStyle\": \"cultural\",\n  \"season\": \"spring\",\n  \"duration\": \"7 days\",\n  \"interests\": [\"history\", \"museums\", \"local cuisine\"]\n}"
+          "raw": "{\n  \"season\": \"spring\",\n  \"budget\": \"mid-range\",\n  \"travelStyle\": \"cultural\",\n  \"region\": \"Europe\"\n}"
         },
         "url": {
           "raw": "{{baseUrl}}/api/travel/destinations/recommend",
@@ -93,7 +93,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"budget\": \"luxury\",\n  \"travelStyle\": \"adventure\",\n  \"season\": \"summer\",\n  \"duration\": \"14 days\",\n  \"interests\": [\"hiking\", \"wildlife\", \"photography\"],\n  \"maxSuggestions\": 4\n}"
+          "raw": "{\n  \"season\": \"summer\",\n  \"budget\": \"luxury\",\n  \"travelStyle\": \"adventure\",\n  \"region\": \"Asia\"\n}"
         },
         "url": {
           "raw": "{{baseUrl}}/api/travel/destinations/suggest",
@@ -133,7 +133,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/api/travel/activities?destination=Tokyo&interests=culture,food,technology&duration=3",
+          "raw": "{{baseUrl}}/api/travel/activities?destination=Tokyo&travelStyle=cultural&count=5",
           "host": ["{{baseUrl}}"],
           "path": ["api", "travel", "activities"],
           "query": [
@@ -142,12 +142,12 @@
               "value": "Tokyo"
             },
             {
-              "key": "interests",
-              "value": "culture,food,technology"
+              "key": "travelStyle",
+              "value": "cultural"
             },
             {
-              "key": "duration",
-              "value": "3"
+              "key": "count",
+              "value": "5"
             }
           ]
         },
@@ -186,7 +186,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/api/travel/itinerary?destination=Paris&days=5&style=romantic&pace=relaxed",
+          "raw": "{{baseUrl}}/api/travel/itinerary?destination=Paris&travelStyle=romantic",
           "host": ["{{baseUrl}}"],
           "path": ["api", "travel", "itinerary"],
           "query": [
@@ -195,16 +195,8 @@
               "value": "Paris"
             },
             {
-              "key": "days",
-              "value": "5"
-            },
-            {
-              "key": "style",
+              "key": "travelStyle",
               "value": "romantic"
-            },
-            {
-              "key": "pace",
-              "value": "relaxed"
             }
           ]
         },
@@ -245,7 +237,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/api/travel/packing-list?destination=Iceland&season=winter&duration=10&activities=hiking,photography",
+          "raw": "{{baseUrl}}/api/travel/packing-list?destination=Iceland&season=winter",
           "host": ["{{baseUrl}}"],
           "path": ["api", "travel", "packing-list"],
           "query": [
@@ -256,14 +248,6 @@
             {
               "key": "season",
               "value": "winter"
-            },
-            {
-              "key": "duration",
-              "value": "10"
-            },
-            {
-              "key": "activities",
-              "value": "hiking,photography"
             }
           ]
         },

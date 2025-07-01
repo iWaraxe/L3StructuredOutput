@@ -37,7 +37,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/api/books/recommend?genre=Science Fiction&author=Isaac Asimov",
+          "raw": "{{baseUrl}}/api/books/recommend?genre=Science Fiction&mood=intellectual&theme=robots",
           "host": ["{{baseUrl}}"],
           "path": ["api", "books", "recommend"],
           "query": [
@@ -46,8 +46,12 @@
               "value": "Science Fiction"
             },
             {
-              "key": "author",
-              "value": "Isaac Asimov"
+              "key": "mood",
+              "value": "intellectual"
+            },
+            {
+              "key": "theme",
+              "value": "robots"
             }
           ]
         },
@@ -86,17 +90,17 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/api/books/recommend-by-mood?mood=inspiring&count=3",
+          "raw": "{{baseUrl}}/api/books/recommend-by-mood?genre=Fiction&moods=inspiring,uplifting,motivational",
           "host": ["{{baseUrl}}"],
           "path": ["api", "books", "recommend-by-mood"],
           "query": [
             {
-              "key": "mood",
-              "value": "inspiring"
+              "key": "genre",
+              "value": "Fiction"
             },
             {
-              "key": "count",
-              "value": "3"
+              "key": "moods",
+              "value": "inspiring,uplifting,motivational"
             }
           ]
         },

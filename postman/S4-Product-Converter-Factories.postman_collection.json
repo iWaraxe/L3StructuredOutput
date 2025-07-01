@@ -169,17 +169,17 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/api/products/generate/review?productName=MacBook Pro&rating=4.5",
+          "raw": "{{baseUrl}}/api/products/generate/review?productId=macbook-pro-2023&sentiment=positive",
           "host": ["{{baseUrl}}"],
           "path": ["api", "products", "generate", "review"],
           "query": [
             {
-              "key": "productName",
-              "value": "MacBook Pro"
+              "key": "productId",
+              "value": "macbook-pro-2023"
             },
             {
-              "key": "rating",
-              "value": "4.5"
+              "key": "sentiment",
+              "value": "positive"
             }
           ]
         },
@@ -216,17 +216,17 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/api/products/generate/features?category=Gaming&productType=Laptop",
+          "raw": "{{baseUrl}}/api/products/generate/features?productType=Gaming Laptop&featureCount=5",
           "host": ["{{baseUrl}}"],
           "path": ["api", "products", "generate", "features"],
           "query": [
             {
-              "key": "category",
-              "value": "Gaming"
+              "key": "productType",
+              "value": "Gaming Laptop"
             },
             {
-              "key": "productType",
-              "value": "Laptop"
+              "key": "featureCount",
+              "value": "5"
             }
           ]
         },
@@ -262,17 +262,13 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/api/products/generate/properties?productType=Camera&brand=Canon",
+          "raw": "{{baseUrl}}/api/products/generate/properties?productType=Canon Camera",
           "host": ["{{baseUrl}}"],
           "path": ["api", "products", "generate", "properties"],
           "query": [
             {
               "key": "productType",
-              "value": "Camera"
-            },
-            {
-              "key": "brand",
-              "value": "Canon"
+              "value": "Canon Camera"
             }
           ]
         },
